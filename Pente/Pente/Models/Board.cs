@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pente.Models
 {
-    class Board
+    public class Board
     {
         public string[,] GameBoard { get; set; } = new string[19, 19];
         public Board()
