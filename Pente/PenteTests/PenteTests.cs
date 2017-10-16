@@ -155,6 +155,7 @@ namespace PenteTests
             }
             bool actualValue = Pente.GameProcesses.GameRules.GameOver(testBoard);
             Assert.AreEqual(expectedValue, actualValue);
+
         }
     }
 }
