@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Pente.Models
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
+        public int Captures { get; set; }
         public Player()
         {
 
