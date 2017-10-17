@@ -19,39 +19,27 @@ namespace PenteTests
         [TestMethod]
         public void IsMoveLegalTest_ShouldReturnValidMove()
         {
-            bool expectedValue = true;
-
             int[] testMove = new int[] { 2, 5 };
-            
-            bool actualValue = Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove);
 
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.IsTrue(Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove));
         }
 
         [TestMethod]
         public void IsMoveLegalTest_ShouldReturnInvalidMoveInBounds()
         {
-            bool expectedValue = false;
-
             int[] testMove = new int[] { 2, 5 };
 
             testBoard.GameBoard[2, 5] = "X";
 
-            bool actualValue = Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove);
-
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.IsFalse(Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove));
         }
 
         [TestMethod]
         public void IsMoveLegalTest_ShouldReturnInvalidMoveOutOfBounds()
         {
-            bool expectedValue = false;
-
             int[] testMove = new int[] { -2, -5 };
-
-            bool actualValue = Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove);
-
-            Assert.AreEqual(expectedValue, actualValue);
+                        
+            Assert.IsFalse(Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove));
         }
 
         //Tests for the GameOver Method
