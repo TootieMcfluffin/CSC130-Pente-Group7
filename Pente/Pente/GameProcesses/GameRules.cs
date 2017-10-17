@@ -76,7 +76,7 @@ namespace Pente.GameProcesses
                     }
                 }
                 //if
-                if (move[1] < board.colCount - 3) 
+                if (move[1] < board.colCount - 3)
                 {
                     if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != "")
                     {
@@ -91,22 +91,270 @@ namespace Pente.GameProcesses
                         }
                     }
                 }
-                if(move[1] > 2)
+                if (move[1] > 2)
                 {
-
+                    if (board.GameBoard[row - 1, col - 1] != player && board.GameBoard[row - 1, col - 1] != "")
+                    {
+                        if (board.GameBoard[row - 2, col - 2] != player && board.GameBoard[row - 2, col - 2] != "")
+                        {
+                            if (board.GameBoard[row - 3, col - 3] == player)
+                            {
+                                board.GameBoard[row - 1, col - 1] = "";
+                                board.GameBoard[row - 2, col - 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
                 }
-                    //remove
+                //remove
             }
-            //upright
-            
+
             //right
-            //downRight
-            //down
-            //downLeft
+            if (move[1] < board.colCount - 3)
+            {
+                if (board.GameBoard[row, col + 1] != player && board.GameBoard[row, col + 1] != "")
+                {
+                    if (board.GameBoard[row, col + 2] != player && board.GameBoard[row, col + 2] != "")
+                    {
+                        if (board.GameBoard[row, col + 3] == player)
+                        {
+                            board.GameBoard[row, col + 1] = "";
+                            board.GameBoard[row, col + 2] = "";
+                            currentPlayer.Captures++;
+                        }
+
+                    }
+                }
+            }
+
             //left
-            //upLeft
+            if (move[1] > 2)
+            {
+                if (board.GameBoard[row, col - 1] != player && board.GameBoard[row, col - 1] != "")
+                {
+                    if (board.GameBoard[row, col - 2] != player && board.GameBoard[row, col - 2] != "")
+                    {
+                        if (board.GameBoard[row, col - 3] == player)
+                        {
+                            board.GameBoard[row, col - 1] = "";
+                            board.GameBoard[row, col - 2] = "";
+                            currentPlayer.Captures++;
+                        }
+
+                    }
+                }
+            }
+            //down
+            if (move[0] < board.rowCount - 3)
+            {
+                //Check if legalToremove
+                if (board.GameBoard[row + 1, col] != player && board.GameBoard[row + 1, col] != "")
+                {
+                    if (board.GameBoard[row + 2, col] != player && board.GameBoard[row + 2, col] != "")
+                    {
+                        if (board.GameBoard[row + 3, col] == player)
+                        {
+                            board.GameBoard[row + 1, col] = "";
+                            board.GameBoard[row + 2, col] = "";
+                            currentPlayer.Captures++;
+                        }
+                    }
+                }
+                //if
+                if (move[1] < board.colCount - 3)
+                {
+                    if (board.GameBoard[row + 1, col + 1] != player && board.GameBoard[row + 1, col + 1] != "")
+                    {
+                        if (board.GameBoard[row + 2, col + 2] != player && board.GameBoard[row + 2, col + 2] != "")
+                        {
+                            if (board.GameBoard[row + 3, col + 3] == player)
+                            {
+                                board.GameBoard[row + 1, col + 1] = "";
+                                board.GameBoard[row + 2, col + 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+                if (move[1] > 2)
+                {
+                    if (board.GameBoard[row + 1, col - 1] != player && board.GameBoard[row + 1, col - 1] != "")
+                    {
+                        if (board.GameBoard[row + 2, col - 2] != player && board.GameBoard[row + 2, col - 2] != "")
+                        {
+                            if (board.GameBoard[row + 3, col - 3] == player)
+                            {
+                                board.GameBoard[row + 1, col - 1] = "";
+                                board.GameBoard[row + 2, col - 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+            }
         }
-        //public static bool gameOver()
-        //public static void checkBoard()
+
+        public static bool GameOver(Player player, Board board)
+        {
+            bool isOver = false;
+            if(player.Captures >= 5)
+            {
+                //PopUp Window display winner
+                player.hasWon = true;
+                isOver = true;
+            }
+            else if (){
+
+            }
+            else
+            {
+
+            }
+
+            return isOver;
+        }
+
+        public static bool CheckBoardFor5(Player currentPlayer, Board board, int[] move)
+        {
+            string player = "" + currentPlayer.pieceChar;
+            int row = move[0];
+            int col = move[1];
+            bool found5 = false;
+
+            //up
+            if (move[0] > 4)
+            {
+                //Check if legalToremove
+                if (board.GameBoard[row - 1, col] != player && board.GameBoard[row - 1, col] != "")
+                {
+                    if (board.GameBoard[row - 2, col] != player && board.GameBoard[row - 2, col] != "")
+                    {
+                        if (board.GameBoard[row - 3, col] == player)
+                        {
+                            board.GameBoard[row - 1, col] = "";
+                            board.GameBoard[row - 2, col] = "";
+                            currentPlayer.Captures++;
+                        }
+                    }
+                }
+                //if
+                if (move[1] < board.colCount - 3)
+                {
+                    if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != "")
+                    {
+                        if (board.GameBoard[row - 2, col + 2] != player && board.GameBoard[row - 2, col + 2] != "")
+                        {
+                            if (board.GameBoard[row - 3, col + 3] == player)
+                            {
+                                board.GameBoard[row - 1, col + 1] = "";
+                                board.GameBoard[row - 2, col + 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+                if (move[1] > 2)
+                {
+                    if (board.GameBoard[row - 1, col - 1] != player && board.GameBoard[row - 1, col - 1] != "")
+                    {
+                        if (board.GameBoard[row - 2, col - 2] != player && board.GameBoard[row - 2, col - 2] != "")
+                        {
+                            if (board.GameBoard[row - 3, col - 3] == player)
+                            {
+                                board.GameBoard[row - 1, col - 1] = "";
+                                board.GameBoard[row - 2, col - 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+                //remove
+            }
+
+            //right
+            if (move[1] < board.colCount - 3)
+            {
+                if (board.GameBoard[row, col + 1] != player && board.GameBoard[row, col + 1] != "")
+                {
+                    if (board.GameBoard[row, col + 2] != player && board.GameBoard[row, col + 2] != "")
+                    {
+                        if (board.GameBoard[row, col + 3] == player)
+                        {
+                            board.GameBoard[row, col + 1] = "";
+                            board.GameBoard[row, col + 2] = "";
+                            currentPlayer.Captures++;
+                        }
+
+                    }
+                }
+            }
+
+            //left
+            if (move[1] > 2)
+            {
+                if (board.GameBoard[row, col - 1] != player && board.GameBoard[row, col - 1] != "")
+                {
+                    if (board.GameBoard[row, col - 2] != player && board.GameBoard[row, col - 2] != "")
+                    {
+                        if (board.GameBoard[row, col - 3] == player)
+                        {
+                            board.GameBoard[row, col - 1] = "";
+                            board.GameBoard[row, col - 2] = "";
+                            currentPlayer.Captures++;
+                        }
+
+                    }
+                }
+            }
+            //down
+            if (move[0] < board.rowCount - 3)
+            {
+                //Check if legalToremove
+                if (board.GameBoard[row + 1, col] != player && board.GameBoard[row + 1, col] != "")
+                {
+                    if (board.GameBoard[row + 2, col] != player && board.GameBoard[row + 2, col] != "")
+                    {
+                        if (board.GameBoard[row + 3, col] == player)
+                        {
+                            board.GameBoard[row + 1, col] = "";
+                            board.GameBoard[row + 2, col] = "";
+                            currentPlayer.Captures++;
+                        }
+                    }
+                }
+                //if
+                if (move[1] < board.colCount - 3)
+                {
+                    if (board.GameBoard[row + 1, col + 1] != player && board.GameBoard[row + 1, col + 1] != "")
+                    {
+                        if (board.GameBoard[row + 2, col + 2] != player && board.GameBoard[row + 2, col + 2] != "")
+                        {
+                            if (board.GameBoard[row + 3, col + 3] == player)
+                            {
+                                board.GameBoard[row + 1, col + 1] = "";
+                                board.GameBoard[row + 2, col + 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+                if (move[1] > 2)
+                {
+                    if (board.GameBoard[row + 1, col - 1] != player && board.GameBoard[row + 1, col - 1] != "")
+                    {
+                        if (board.GameBoard[row + 2, col - 2] != player && board.GameBoard[row + 2, col - 2] != "")
+                        {
+                            if (board.GameBoard[row + 3, col - 3] == player)
+                            {
+                                board.GameBoard[row + 1, col - 1] = "";
+                                board.GameBoard[row + 2, col - 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+            }
+            return found5;
+        }
     }
 }
