@@ -76,7 +76,7 @@ namespace Pente.GameProcesses
                     }
                 }
                 //if
-                if (move[1] < board.colCount - 3)
+                if (move[1] < board.colCount - 3) 
                 {
                     if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != "")
                     {
