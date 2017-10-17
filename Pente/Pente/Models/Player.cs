@@ -10,6 +10,8 @@ namespace Pente.Models
     {
         public string Name { get; set; }
         public int Captures { get; set; }
+        public char pieceChar { get; set; }
+   
         public Player()
         {
 

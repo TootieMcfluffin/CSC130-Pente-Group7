@@ -55,22 +55,50 @@ namespace Pente.GameProcesses
 
         public static void RemovePieces(Player currentPlayer, Board board, int[] move)
         {
+            string player = "" + currentPlayer.pieceChar;
+            int row = move[0];
+            int col = move[1];
+
             //up
-            if (move[0] > 3)
+            if (move[0] > 2)
             {
                 //Check if legalToremove
-                //remove
+                if (board.GameBoard[row - 1, col] != player && board.GameBoard[row - 1, col] != "")
+                {
+                    if (board.GameBoard[row - 2, col] != player && board.GameBoard[row - 2, col] != "")
+                    {
+                        if (board.GameBoard[row - 3, col] == player)
+                        {
+                            board.GameBoard[row - 1, col] = "";
+                            board.GameBoard[row - 2, col] = "";
+                            currentPlayer.Captures++;
+                        }
+                    }
+                }
                 //if
-                    //remove
-            }
-            //upright
-            if (move[0] > 3)
-            {
-                if (move[1] < 16)
+                if (move[1] < board.colCount - 3)
+                {
+                    if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != "")
+                    {
+                        if (board.GameBoard[row - 2, col + 2] != player && board.GameBoard[row - 2, col + 2] != "")
+                        {
+                            if (board.GameBoard[row - 3, col + 3] == player)
+                            {
+                                board.GameBoard[row - 1, col + 1] = "";
+                                board.GameBoard[row - 2, col + 2] = "";
+                                currentPlayer.Captures++;
+                            }
+                        }
+                    }
+                }
+                if(move[1] > 2)
                 {
 
                 }
+                    //remove
             }
+            //upright
+            
             //right
             //downRight
             //down
