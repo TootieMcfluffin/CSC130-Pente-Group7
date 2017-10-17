@@ -16,13 +16,19 @@ using System.Windows.Shapes;
 namespace Pente
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Instructions.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class Instructions : Page
     {
-        public MainWindow()
+        public Instructions()
         {
             InitializeComponent();
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            MainMenu menu = new MainMenu();
+            this.NavigationService.Navigate(menu);
         }
     }
 }

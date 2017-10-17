@@ -43,7 +43,7 @@ namespace Pente.GameProcesses
             {
                 return false;
             }
-            else if (board.GameBoard[move[1],move[0]] == "X" || board.GameBoard[move[1], move[0]] == "Y")
+            else if (board.GameBoard[move[0],move[1]] == "X" || board.GameBoard[move[0], move[1]] == "Y")
             {
                 return false;
             }
