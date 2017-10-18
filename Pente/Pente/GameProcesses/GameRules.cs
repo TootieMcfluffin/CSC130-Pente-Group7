@@ -194,25 +194,25 @@ namespace Pente.GameProcesses
             }
         }
 
-        public static bool GameOver(Player player, Board board)
-        {
-            bool isOver = false;
-            if(player.Captures >= 5)
-            {
-                //PopUp Window display winner
-                player.hasWon = true;
-                isOver = true;
-            }
-            else if (){
+        //public static bool GameOver(Player player, Board board)
+        //{
+        //    bool isOver = false;
+        //    if(player.Captures >= 5)
+        //    {
+        //        //PopUp Window display winner
+        //        player.hasWon = true;
+        //        isOver = true;
+        //    }
+        //    else if (){
 
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
 
-            }
+        //    }
 
-            return isOver;
-        }
+        //    return isOver;
+        //}
 
         public static bool CheckBoardFor5(Player currentPlayer, Board board, int[] move)
         {
