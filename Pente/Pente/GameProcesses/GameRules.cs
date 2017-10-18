@@ -232,7 +232,7 @@ namespace Pente.GameProcesses
 
         public static bool CheckBoardFor5(Player currentPlayer, Board board, int[] move)
         {
-            string player = " " + currentPlayer.pieceChar;
+            string player = "" + currentPlayer.pieceChar;
             int row = move[0];
             int col = move[1];
             bool found5 = false;
