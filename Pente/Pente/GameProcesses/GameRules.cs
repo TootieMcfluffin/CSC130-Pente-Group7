@@ -196,7 +196,6 @@ namespace Pente.GameProcesses
                 }
             }
         }
-
         public static bool GameOver(Player player, Board board)
         {
             bool isOver = false;
@@ -216,6 +215,7 @@ namespace Pente.GameProcesses
                         isOver = CheckBoardFor5(player, board, move);
                         if (isOver)
                         {
+                            //PopUp Window that displays the winner
                             k = board.colCount + 1;
                             j = board.rowCount + 1;
                         }
@@ -249,7 +249,6 @@ namespace Pente.GameProcesses
                         {
                             if (board.GameBoard[row - 4, col] == player)
                             {
-                                currentPlayer.hasWon = true;
                                 found5 = true;
                             }
                         }
@@ -266,7 +265,6 @@ namespace Pente.GameProcesses
                             {
                                 if(board.GameBoard[row - 4, col + 4] == player)
                                 {
-                                    currentPlayer.hasWon = true;
                                     found5 = true;
                                 }
                             }
@@ -284,7 +282,6 @@ namespace Pente.GameProcesses
                             {
                                 if (board.GameBoard[row - 4, col - 4] == player)
                                 {
-                                    currentPlayer.hasWon = true;
                                     found5 = true;
                                 }
                             }
@@ -305,7 +302,6 @@ namespace Pente.GameProcesses
                         {
                             if (board.GameBoard[row, col + 4] == player)
                             {
-                                currentPlayer.hasWon = true;
                                 found5 = true;
                             }
                         }
@@ -325,7 +321,6 @@ namespace Pente.GameProcesses
                         {
                             if (board.GameBoard[row, col - 4] == player)
                             {
-                                currentPlayer.hasWon = true;
                                 found5 = true;
                             }
                         }
@@ -345,7 +340,6 @@ namespace Pente.GameProcesses
                         {
                             if (board.GameBoard[row + 4, col] == player)
                             {
-                                currentPlayer.hasWon = true;
                                 found5 = true;
                             }
                         }
@@ -362,7 +356,6 @@ namespace Pente.GameProcesses
                             {
                                 if (board.GameBoard[row + 4, col + 4] == player)
                                 {
-                                    currentPlayer.hasWon = true;
                                     found5 = true;
                                 }
                             }
@@ -380,7 +373,6 @@ namespace Pente.GameProcesses
                             {
                                 if (board.GameBoard[row + 4, col - 4] == player)
                                 {
-                                    currentPlayer.hasWon = true;
                                     found5 = true;
                                 }
                             }

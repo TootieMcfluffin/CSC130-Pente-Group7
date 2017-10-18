@@ -8,14 +8,17 @@ namespace PenteTests
     public class PenteTests
     {
         Pente.Models.Board testBoard;
+        Pente.Models.Player testPlayer;
 
         [TestInitialize]
         public void TestIntitialize()
         {
             testBoard = new Pente.Models.Board();
+            testPlayer = new Pente.Models.Player("Dubya");
+            testPlayer.pieceChar = 'X';
         }
 
-        //Tests for the IsMoveLegalTest
+        //Tests for the IsMoveLegal method
         [TestMethod]
         public void IsMoveLegalTest_ShouldReturnValidMove()
         {
@@ -42,7 +45,85 @@ namespace PenteTests
             Assert.IsFalse(Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove));
         }
 
-        //Tests for the GameOver Method
+        //Tests for the RemovePieces method
+        [TestMethod]
+        public void RemovePiecesTest_NothingToRemove_ShouldReturnInvalid()
+        {
+            testBoard.GameBoard[0, 0] = "X";
+            testBoard.GameBoard[0, 1] = "0";
+            testBoard.GameBoard[0, 2] = "0";
+            Pente.Models.Board tempBoard = testBoard;
+            int[] testMove = { 0, 4 };
+            Pente.GameProcesses.GameRules.RemovePieces(testPlayer, tempBoard, testMove);
+            Assert.AreEqual(testBoard, tempBoard);
+        }
+        [TestMethod]
+        public void RemovePiecesTest_CanRemoveUp_ShouldReturnValid()
+        {
+            testBoard.GameBoard[3, 0] = "X";
+            testBoard.GameBoard[1, 0] = "0";
+            testBoard.GameBoard[2, 0] = "0";
+
+            Pente.Models.Board tempBoard = new Pente.Models.Board();
+            tempBoard.GameBoard[3, 0] = "X";
+            tempBoard.GameBoard[1, 0] = "0";
+            tempBoard.GameBoard[2, 0] = "0";
+
+            int[] testMove = { 0, 0 };
+            Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
+            Assert.AreNotEqual(testBoard, tempBoard);
+        }
+        [TestMethod]
+        public void RemovePiecesTest_CanRemoveDown_ShouldReturnValid()
+        {
+            testBoard.GameBoard[0, 0] = "X";
+            testBoard.GameBoard[1, 0] = "0";
+            testBoard.GameBoard[2, 0] = "0";
+
+            Pente.Models.Board tempBoard = new Pente.Models.Board();
+            tempBoard.GameBoard[0, 0] = "X";
+            tempBoard.GameBoard[1, 0] = "0";
+            tempBoard.GameBoard[2, 0] = "0";
+
+            int[] testMove = { 3, 0 };
+            Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
+            Assert.AreNotEqual(testBoard, tempBoard);
+        }
+        [TestMethod]
+        public void RemovePiecesTest_CanRemoveLeft_ShouldReturnValid()
+        {
+            testBoard.GameBoard[0, 1] = "X";
+            testBoard.GameBoard[0, 2] = "0";
+            testBoard.GameBoard[0, 3] = "0";
+
+            Pente.Models.Board tempBoard = new Pente.Models.Board();
+            tempBoard.GameBoard[0, 1] = "X";
+            tempBoard.GameBoard[0, 2] = "0";
+            tempBoard.GameBoard[0, 3] = "0";
+
+            int[] testMove = { 0, 0 };
+            Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
+            Assert.AreNotEqual(testBoard, tempBoard);
+        }
+        [TestMethod]
+        public void RemovePiecesTest_CanRemoveRight_ShouldReturnValid()
+        {
+            testBoard.GameBoard[0, 0] = "X";
+            testBoard.GameBoard[0, 1] = "0";
+            testBoard.GameBoard[0, 2] = "0";
+
+            Pente.Models.Board tempBoard = new Pente.Models.Board();
+            tempBoard.GameBoard[0, 0] = "X";
+            tempBoard.GameBoard[0, 1] = "0";
+            tempBoard.GameBoard[0, 2] = "0";
+
+            int[] testMove = { 0, 3 };
+            Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
+            Assert.AreNotEqual(testBoard, tempBoard);
+        }
+
+
+        //Tests for the GameOver method
         //[TestMethod]
         //public void GameOverTest_NoWinsBoardNotFull_ShouldReturnInvalid()
         //{
@@ -134,7 +215,7 @@ namespace PenteTests
         //                if (j % 2 == 0)
         //                {
         //                    testBoard.GameBoard[i, j] = "X";
-                            
+
         //                }
         //                else
         //                {
