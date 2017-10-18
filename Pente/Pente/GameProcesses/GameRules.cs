@@ -62,7 +62,7 @@ namespace Pente.GameProcesses
             //up
             if (move[0] > 2)
             {
-                //Check if legalToremove
+                //up
                 if (board.GameBoard[row - 1, col] != player && board.GameBoard[row - 1, col] != "")
                 {
                     if (board.GameBoard[row - 2, col] != player && board.GameBoard[row - 2, col] != "")
@@ -75,7 +75,7 @@ namespace Pente.GameProcesses
                         }
                     }
                 }
-                //if
+                //up right
                 if (move[1] < board.colCount - 3)
                 {
                     if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != "")
@@ -91,6 +91,7 @@ namespace Pente.GameProcesses
                         }
                     }
                 }
+                //up left
                 if (move[1] > 2)
                 {
                     if (board.GameBoard[row - 1, col - 1] != player && board.GameBoard[row - 1, col - 1] != "")
@@ -106,7 +107,7 @@ namespace Pente.GameProcesses
                         }
                     }
                 }
-                //remove
+                
             }
 
             //right
@@ -147,7 +148,7 @@ namespace Pente.GameProcesses
             //down
             if (move[0] < board.rowCount - 3)
             {
-                //Check if legalToremove
+                //down
                 if (board.GameBoard[row + 1, col] != player && board.GameBoard[row + 1, col] != "")
                 {
                     if (board.GameBoard[row + 2, col] != player && board.GameBoard[row + 2, col] != "")
@@ -160,7 +161,7 @@ namespace Pente.GameProcesses
                         }
                     }
                 }
-                //if
+                //down right
                 if (move[1] < board.colCount - 3)
                 {
                     if (board.GameBoard[row + 1, col + 1] != player && board.GameBoard[row + 1, col + 1] != "")
@@ -176,6 +177,7 @@ namespace Pente.GameProcesses
                         }
                     }
                 }
+                //down left
                 if (move[1] > 2)
                 {
                     if (board.GameBoard[row + 1, col - 1] != player && board.GameBoard[row + 1, col - 1] != "")
@@ -203,12 +205,25 @@ namespace Pente.GameProcesses
                 player.hasWon = true;
                 isOver = true;
             }
+            //some check for if the board is filled
             else if (){
 
             }
             else
             {
-
+                for(int j = 0; j < board.rowCount; j++)
+                {
+                    for(int k = 0; k < board.colCount; k++)
+                    {
+                        int[] move = { j, k };
+                        isOver = CheckBoardFor5(player, board, move);
+                        if (isOver)
+                        {
+                            k = board.colCount + 1;
+                            j = board.rowCount + 1;
+                        }
+                    }
+                }
             }
 
             return isOver;
@@ -224,46 +239,53 @@ namespace Pente.GameProcesses
             //up
             if (move[0] > 4)
             {
-                //Check if legalToremove
-                if (board.GameBoard[row - 1, col] != player && board.GameBoard[row - 1, col] != "")
+                //up
+                if (board.GameBoard[row - 1, col] == player)
                 {
-                    if (board.GameBoard[row - 2, col] != player && board.GameBoard[row - 2, col] != "")
+                    if (board.GameBoard[row - 2, col] == player)
                     {
                         if (board.GameBoard[row - 3, col] == player)
                         {
-                            board.GameBoard[row - 1, col] = "";
-                            board.GameBoard[row - 2, col] = "";
-                            currentPlayer.Captures++;
-                        }
-                    }
-                }
-                //if
-                if (move[1] < board.colCount - 3)
-                {
-                    if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != "")
-                    {
-                        if (board.GameBoard[row - 2, col + 2] != player && board.GameBoard[row - 2, col + 2] != "")
-                        {
-                            if (board.GameBoard[row - 3, col + 3] == player)
+                            if (board.GameBoard[row - 4, col] == player)
                             {
-                                board.GameBoard[row - 1, col + 1] = "";
-                                board.GameBoard[row - 2, col + 2] = "";
-                                currentPlayer.Captures++;
+                                currentPlayer.hasWon = true;
+                                found5 = true;
                             }
                         }
                     }
                 }
+                //up right
+                if (move[1] < board.colCount - 3)
+                {
+                    if (board.GameBoard[row - 1, col + 1] == player)
+                    {
+                        if (board.GameBoard[row - 2, col + 2] == player)
+                        {
+                            if (board.GameBoard[row - 3, col + 3] == player)
+                            {
+                                if(board.GameBoard[row - 4, col + 4] == player)
+                                {
+                                    currentPlayer.hasWon = true;
+                                    found5 = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                //up left
                 if (move[1] > 2)
                 {
-                    if (board.GameBoard[row - 1, col - 1] != player && board.GameBoard[row - 1, col - 1] != "")
+                    if (board.GameBoard[row - 1, col - 1] == player)
                     {
-                        if (board.GameBoard[row - 2, col - 2] != player && board.GameBoard[row - 2, col - 2] != "")
+                        if (board.GameBoard[row - 2, col - 2] == player)
                         {
                             if (board.GameBoard[row - 3, col - 3] == player)
                             {
-                                board.GameBoard[row - 1, col - 1] = "";
-                                board.GameBoard[row - 2, col - 2] = "";
-                                currentPlayer.Captures++;
+                                if (board.GameBoard[row - 4, col - 4] == player)
+                                {
+                                    currentPlayer.hasWon = true;
+                                    found5 = true;
+                                }
                             }
                         }
                     }
@@ -274,15 +296,17 @@ namespace Pente.GameProcesses
             //right
             if (move[1] < board.colCount - 3)
             {
-                if (board.GameBoard[row, col + 1] != player && board.GameBoard[row, col + 1] != "")
+                if (board.GameBoard[row, col + 1] == player)
                 {
-                    if (board.GameBoard[row, col + 2] != player && board.GameBoard[row, col + 2] != "")
+                    if (board.GameBoard[row, col + 2] == player)
                     {
                         if (board.GameBoard[row, col + 3] == player)
                         {
-                            board.GameBoard[row, col + 1] = "";
-                            board.GameBoard[row, col + 2] = "";
-                            currentPlayer.Captures++;
+                            if (board.GameBoard[row, col + 4] == player)
+                            {
+                                currentPlayer.hasWon = true;
+                                found5 = true;
+                            }
                         }
 
                     }
@@ -292,15 +316,17 @@ namespace Pente.GameProcesses
             //left
             if (move[1] > 2)
             {
-                if (board.GameBoard[row, col - 1] != player && board.GameBoard[row, col - 1] != "")
+                if (board.GameBoard[row, col - 1] == player)
                 {
-                    if (board.GameBoard[row, col - 2] != player && board.GameBoard[row, col - 2] != "")
+                    if (board.GameBoard[row, col - 2] == player)
                     {
                         if (board.GameBoard[row, col - 3] == player)
                         {
-                            board.GameBoard[row, col - 1] = "";
-                            board.GameBoard[row, col - 2] = "";
-                            currentPlayer.Captures++;
+                            if (board.GameBoard[row, col - 4] == player)
+                            {
+                                currentPlayer.hasWon = true;
+                                found5 = true;
+                            }
                         }
 
                     }
@@ -309,46 +335,53 @@ namespace Pente.GameProcesses
             //down
             if (move[0] < board.rowCount - 3)
             {
-                //Check if legalToremove
-                if (board.GameBoard[row + 1, col] != player && board.GameBoard[row + 1, col] != "")
+                //down
+                if (board.GameBoard[row + 1, col] == player)
                 {
-                    if (board.GameBoard[row + 2, col] != player && board.GameBoard[row + 2, col] != "")
+                    if (board.GameBoard[row + 2, col] == player)
                     {
                         if (board.GameBoard[row + 3, col] == player)
                         {
-                            board.GameBoard[row + 1, col] = "";
-                            board.GameBoard[row + 2, col] = "";
-                            currentPlayer.Captures++;
-                        }
-                    }
-                }
-                //if
-                if (move[1] < board.colCount - 3)
-                {
-                    if (board.GameBoard[row + 1, col + 1] != player && board.GameBoard[row + 1, col + 1] != "")
-                    {
-                        if (board.GameBoard[row + 2, col + 2] != player && board.GameBoard[row + 2, col + 2] != "")
-                        {
-                            if (board.GameBoard[row + 3, col + 3] == player)
+                            if (board.GameBoard[row + 4, col] == player)
                             {
-                                board.GameBoard[row + 1, col + 1] = "";
-                                board.GameBoard[row + 2, col + 2] = "";
-                                currentPlayer.Captures++;
+                                currentPlayer.hasWon = true;
+                                found5 = true;
                             }
                         }
                     }
                 }
+                //down right
+                if (move[1] < board.colCount - 3)
+                {
+                    if (board.GameBoard[row + 1, col + 1] == player)
+                    {
+                        if (board.GameBoard[row + 2, col + 2] == player)
+                        {
+                            if (board.GameBoard[row + 3, col + 3] == player)
+                            {
+                                if (board.GameBoard[row + 4, col + 4] == player)
+                                {
+                                    currentPlayer.hasWon = true;
+                                    found5 = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                //down left
                 if (move[1] > 2)
                 {
-                    if (board.GameBoard[row + 1, col - 1] != player && board.GameBoard[row + 1, col - 1] != "")
+                    if (board.GameBoard[row + 1, col - 1] == player)
                     {
-                        if (board.GameBoard[row + 2, col - 2] != player && board.GameBoard[row + 2, col - 2] != "")
+                        if (board.GameBoard[row + 2, col - 2] == player)
                         {
                             if (board.GameBoard[row + 3, col - 3] == player)
                             {
-                                board.GameBoard[row + 1, col - 1] = "";
-                                board.GameBoard[row + 2, col - 2] = "";
-                                currentPlayer.Captures++;
+                                if (board.GameBoard[row + 4, col - 4] == player)
+                                {
+                                    currentPlayer.hasWon = true;
+                                    found5 = true;
+                                }
                             }
                         }
                     }
