@@ -48,8 +48,8 @@ namespace Pente
             }
             Player playerOne = new Player(playerOneName, PlayerOrderEnum.PLAYER1);
             Player playerTwo = new Player(playerTwoName, PlayerOrderEnum.PLAYER2);
-            Game game = new Game(playerOne, playerTwo);
-            this.NavigationService.Navigate(game);
+            //Game game = new Game(playerOne, playerTwo);
+            //this.NavigationService.Navigate(game);
 
         }
     }
