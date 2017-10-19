@@ -140,6 +140,7 @@
     <Resource Include="Images\Transparent16x16.png" />
     <Resource Include="Images\WhiteStone.png" />
     <Resource Include="Images\WhiteStoneB.png" />
+    <Resource Include="Pente.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
