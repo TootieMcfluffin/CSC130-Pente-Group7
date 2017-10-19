@@ -17,15 +17,17 @@ namespace Pente.GameProcesses
         /// <returns>Whether or not the move is legal. </returns>
         public static bool IsMoveLegal(Board board, int[] move, int turnCount)
         {
-            if(turnCount == 1 && move[0] == 9 && move[1] == 9)
+            int rowMiddle = board.rowCount / 2;
+            int colMiddle = board.colCount / 2;
+            if (turnCount == 1 && move[0] == rowMiddle && move[1] == colMiddle)
             {
                 return true;
             }
-            else if (turnCount == 3 && (move[1] < 7 || move[1] > 11) )
+            else if (turnCount == 3 && (move[1] < colMiddle - 2 || move[1] > colMiddle + 2) )
             {
                 return IsMoveLegal(board, move);
             }
-            else if (turnCount == 3 && (move[0] < 7 || move[0] > 11))
+            else if (turnCount == 3 && (move[0] < rowMiddle || move[0] > rowMiddle + 2))
             {
                 return IsMoveLegal(board, move);
             }
@@ -251,7 +253,7 @@ namespace Pente.GameProcesses
         /// <returns>Whether or not there is a row of 5 or more on the board.</returns>
         public static bool CheckBoardFor5(Player currentPlayer, Board board, int[] move)
         {
-            string player = " " + currentPlayer.pieceChar;
+            string player = "" + currentPlayer.pieceChar;
             int row = move[0];
             int col = move[1];
             bool found5 = false;
