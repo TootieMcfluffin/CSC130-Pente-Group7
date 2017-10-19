@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GamePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="InitializationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +79,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums\PlayerOrderEnum.cs" />
+    <Compile Include="GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameProcesses\GameRules.cs" />
     <Compile Include="InitializationPage.xaml.cs">
       <DependentUpon>InitializationPage.xaml</DependentUpon>
@@ -92,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -117,6 +125,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BlackStone.png" />
+    <Resource Include="Images\bottomleft.png" />
+    <Resource Include="Images\bottomright.png" />
+    <Resource Include="Images\bottomside.png" />
+    <Resource Include="Images\cross.png" />
+    <Resource Include="Images\leftside.png" />
+    <Resource Include="Images\rightside.png" />
+    <Resource Include="Images\topleft.png" />
+    <Resource Include="Images\topright.png" />
+    <Resource Include="Images\topside.png" />
+    <Resource Include="Images\Transparent16x16.png" />
+    <Resource Include="Images\WhiteStone.png" />
+    <Resource Include="Images\WhiteStoneB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

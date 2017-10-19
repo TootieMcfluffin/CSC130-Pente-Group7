@@ -56,7 +56,7 @@ namespace Pente
         //    }
         //}
 
-        //private void Open_Click(object sender, RoutedEventArgs e)
+        //private void Load_Click(object sender, RoutedEventArgs e)
         //{
         //    OpenFileDialog openFileDialog = new OpenFileDialog();
         //    openFileDialog.Filter = "ContactList file (*.con)|*.con";

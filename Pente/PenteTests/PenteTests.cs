@@ -9,6 +9,7 @@ namespace PenteTests
     {
         Pente.Models.Board testBoard;
         Pente.Models.Player testPlayer;
+        Pente.MainWindow testWindow;
 
         [TestInitialize]
         public void TestIntitialize()
@@ -434,6 +435,15 @@ namespace PenteTests
         {
             testPlayer.Captures = 5;
             Assert.IsTrue(Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard));
-        }               
+        } 
+        
+        //GUI Testing
+        //[TestMethod]
+        //public void PlayButtonTest_WindowChangedState_ShouldReturnValid()
+        //{
+        //    testWindow = new Pente.MainWindow();
+        //    Pente.MainWindow testWindow2 = new Pente.MainWindow();
+        //    testWindow.Source().Play_Click();
+        //}
     }
 }
