@@ -9,6 +9,18 @@
       Title="GamePage">
 
     <Grid>
+        <Menu Height="20"
+              VerticalAlignment="Top">
+            <MenuItem Header="Save_ As"/>
+                <MenuItem Header="_Save"/>
+            <MenuItem Header="_Open"/>
+            <!-- display timer? in textbox  -->
+        </Menu>
+        <UniformGrid x:Name="GameGrid"
+                     Background="white"
+                     Margin="10 30 10 10"
+                     Grid.Column="0">
+        </UniformGrid>
         
     </Grid>
 </Page>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Pente.Models
 {
     [Serializable]
-    struct GameState
+    public struct GameState
     {
         string player1Name;
         string player2Name;
