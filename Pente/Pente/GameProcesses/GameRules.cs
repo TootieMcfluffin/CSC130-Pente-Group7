@@ -31,7 +31,6 @@ namespace Pente.GameProcesses
             }
             return IsMoveLegal(board, move);
         }
-
         /// <summary>
         /// Checks legality of moves. 
         /// </summary>
@@ -53,7 +52,12 @@ namespace Pente.GameProcesses
                 return true;
             }
         }
-
+        /// <summary>
+        /// Removes Pairs if present.
+        /// </summary>
+        /// <param name="currentPlayer">Current player</param>
+        /// <param name="board">Game board</param>
+        /// <param name="move">Coordinate pair of this turn's move.</param>
         public static void RemovePieces(Player currentPlayer, Board board, int[] move)
         {
             string player = "" + currentPlayer.pieceChar;
@@ -196,6 +200,15 @@ namespace Pente.GameProcesses
                 }
             }
         }
+        /// <summary>
+        /// Checks if the game is over according to certain criteria:
+        /// -If the current player has 5 or more captured pairs.
+        /// -If current player has a row of 5 stones.
+        /// -If the board is completely filled.
+        /// </summary>
+        /// <param name="player">Current Player</param>
+        /// <param name="board">Game board</param>
+        /// <returns>Whether or not the game is over according to the criteria.</returns>
         public static bool GameOver(Player player, Board board)
         {
             bool isOver = false;
@@ -229,7 +242,13 @@ namespace Pente.GameProcesses
 
             return isOver;
         }
-
+        /// <summary>
+        /// Checking for any rows of 5 or more stones of the same color.
+        /// </summary>
+        /// <param name="currentPlayer">Current player</param>
+        /// <param name="board">Game Board</param>
+        /// <param name="move">Coordinate pair of this turn's move.</param>
+        /// <returns>Whether or not there is a row of 5 or more on the board.</returns>
         public static bool CheckBoardFor5(Player currentPlayer, Board board, int[] move)
         {
             string player = " " + currentPlayer.pieceChar;
@@ -382,7 +401,6 @@ namespace Pente.GameProcesses
             }
             return found5;
         }
-           
         /// <summary>
         /// Checks if board has been filled
         /// </summary>
