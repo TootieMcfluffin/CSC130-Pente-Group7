@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pente.Models;
+using Pente.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +29,8 @@ namespace Pente
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-
+            InitializationPage initialization = new InitializationPage();
+            this.NavigationService.Navigate(initialization);
         }
 
         private void Instructions_Click(object sender, RoutedEventArgs e)
@@ -39,6 +42,11 @@ namespace Pente
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

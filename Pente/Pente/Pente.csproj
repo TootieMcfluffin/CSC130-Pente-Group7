@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="InitializationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Instructions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,6 +76,9 @@
     </Compile>
     <Compile Include="Enums\PlayerOrderEnum.cs" />
     <Compile Include="GameProcesses\GameRules.cs" />
+    <Compile Include="InitializationPage.xaml.cs">
+      <DependentUpon>InitializationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Instructions.xaml.cs">
       <DependentUpon>Instructions.xaml</DependentUpon>
     </Compile>

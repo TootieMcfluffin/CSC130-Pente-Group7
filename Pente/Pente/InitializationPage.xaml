@@ -1,0 +1,83 @@
+﻿<Page x:Class="Pente.InitializationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Pente"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="525"
+      Title="InitializationPage"
+      ShowsNavigationUI="False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Content="P E N T E"
+               FontFamily="Courier New"
+               FontSize="40"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal"
+                        Margin="10"
+                        HorizontalAlignment="Center">
+                <Label Content="Name One:"
+                       FontFamily="Courier New"/>
+                <TextBox Width="150"
+                         x:Name="NameOne"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="10"
+                        HorizontalAlignment="Center">
+                <Label Content="Name Two:"
+                       FontFamily="Courier New"/>
+                <TextBox Width="150"
+                         x:Name="NameTwo"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="10"
+                        HorizontalAlignment="Center">
+                <Label Content="Board Height"
+                       FontFamily="Courier New"/>
+                <Slider x:Name="Height_Slider"
+                        Width="100"
+                        Minimum="9"
+                        Maximum="39"
+                        TickFrequency="2"
+                        IsSnapToTickEnabled="True"/>
+                <Label Content="{Binding ElementName=Height_Slider, Path=Value}"
+                       Width="25"
+                       FontFamily="Courier New"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="10"
+                        HorizontalAlignment="Center">
+                <Label Content="Board Width"
+                       FontFamily="Courier New"/>
+                <Slider x:Name="Width_Slider"
+                        Width="100"
+                        Minimum="9"
+                        Maximum="39"
+                        TickFrequency="2"
+                        IsSnapToTickEnabled="True"/>
+                <Label Content="{Binding ElementName=Width_Slider, Path=Value}"
+                       Width="25"
+                       FontFamily="Courier New"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" VerticalAlignment="Center">
+            <Button Height="30"
+                    Width="200"
+                    Margin="5"
+                    x:Name="Play"
+                    Content="P L A Y"
+                    FontFamily="Courier New"
+                    Click="Play_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
