@@ -23,8 +23,9 @@ namespace Pente
     /// </summary>
     public partial class GamePage : Page
     {
-        SolidColorBrush OffColor = new SolidColorBrush(System.Windows.Media.Colors.Purple);  //Change brushes to imagebrushes
-        SolidColorBrush OnColor = new SolidColorBrush(System.Windows.Media.Colors.Aqua);
+        ImageBrush BlackStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\BlackStone.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush WhiteStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\WhiteStone.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush NoStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\Transparent16x16.png", UriKind.RelativeOrAbsolute)));
         Player player1;
         Player player2;
         Board gameBoard;
@@ -49,9 +50,10 @@ namespace Pente
         public void InitializeBoard(int rowCount, int colCount)
         {
             gameBoard = new Board(rowCount, colCount);
+            InitializeGrid();
         }
 
-        public void playerTurnDecision(int[] move)
+        public void playerTurn(int[] move)
         {
             Player currentPlayer;
             //if turncount /2 == 0 Player 2
@@ -71,7 +73,6 @@ namespace Pente
                 gameBoard.GameBoard[move[0], move[1]] = "" + currentPlayer.pieceChar;
                 GameRules.RemovePieces(currentPlayer, gameBoard, move);
                 resetTimer();
-                //updateGridImages();
             }
         }
         /// <summary>
@@ -80,45 +81,65 @@ namespace Pente
         /// </summary>
         public void InitializeGrid()
         {
+            GameGrid.Rows = gameBoard.rowCount;
+            GameGrid.Columns = gameBoard.colCount;
+
             GameGrid.Children.Clear();
+            
 
-            //for (int i = 0; i < GameGrid.Rows; i++)
-            //{
-            //    for (int j = 0; j < GameGrid.Columns; j++)
-            //    {
-            //        Label newLabel = MakeRectangle(); //import method from conways
-            //        newLabel.MouseLeftButtonDown += RectangleLabel_Click; //label click method
-            //        string filler = " ";
-            //        gameBoard.GameBoard[i, j] = filler;
-            //        newLabel.DataContext = filler;
-            //        Binding newBinding = new Binding();
-            //        newBinding.Path = new PropertyPath("IsOn");
-            //        StringToImageConverter b2b = new StringToImageConverter();
-            //        b2b.OnBrush = OnColor;
-            //        b2b.OffBrush = ;
-            //        newBinding.Converter = b2b;
-            //        newBinding.Mode = BindingMode.TwoWay;
-            //        newBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            //        BindingOperations.SetBinding(newLabel, Label.BackgroundProperty, newBinding);
-            //        GameGrid.Children.Add(newLabel);
+            for (int i = 0; i < GameGrid.Rows; i++)
+            {
+                for (int j = 0; j < GameGrid.Columns; j++)
+                {
+                    Label newLabel = MakeRectangle(); //import method from conways
+                    newLabel.MouseLeftButtonDown += RectangleLabel_Click; //label click method
+                    string filler = " ";
+                    gameBoard.GameBoard[i, j] = filler;
+                    newLabel.DataContext = filler;
+                    Binding newBinding = new Binding();
+                    newBinding.Path = new PropertyPath("gameBoard.GameBoard[i, j]");
+                    StringToImageConverter s2b = new StringToImageConverter();
+                    s2b.BlackStoneBrush = BlackStoneBrush;
+                    s2b.WhiteStoneBrush = WhiteStoneBrush;
+                    s2b.NoStoneBrush = NoStoneBrush;
+                    newBinding.Converter = s2b;
+                    newBinding.Mode = BindingMode.TwoWay;
+                    newBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                    BindingOperations.SetBinding(newLabel, Label.BackgroundProperty, newBinding);
+                    GameGrid.Children.Add(newLabel);
 
-            //    }
-            //}
+                }
+            }
         }
-        //private void updateGridImages()
-        //{
-        //    //Updates all images
-        //    //If gameboard[row,col] == "X" change grid[row,col] = black stone image
-        //    //else if gameboard[row,col] == "Y" change grid[row,col] = white stone image
-        //    //else change grid[row,col] = transparent stone image
-        //    throw new NotImplementedException();
-        //}
+
+        private Label MakeRectangle()
+        {
+
+            SolidColorBrush shapeBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
+            SolidColorBrush shapeBrush2 = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            Thickness thicc = new Thickness(.5);
+            Label rectangleLabel = new Label
+            {
+                Background = shapeBrush,
+                BorderBrush = shapeBrush2,
+                BorderThickness = thicc
+            };
+            return rectangleLabel;
+        }
+        private void RectangleLabel_Click(object sender, EventArgs e)
+        {
+            Label hithere = (Label)sender;
+            int index = GameGrid.Children.IndexOf(hithere);
+            int column = index / GameGrid.Columns;
+            int row = index - (column * GameGrid.Columns);
+            int[] move = { row, column };
+            playerTurn(move);
+        }
 
         private void resetTimer()
         {
             //This will reset the timer
             turnCount++;
-            throw new NotImplementedException();
         }
 
         //private void Save_Click(object sender, RoutedEventArgs e)

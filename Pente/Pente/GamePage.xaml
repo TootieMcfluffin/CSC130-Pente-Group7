@@ -16,8 +16,12 @@
             <MenuItem Header="_Open"/>
             <!-- display timer? in textbox  -->
         </Menu>
+        <UniformGrid x:Name="PictureGrid"
+                     Background="AliceBlue"
+                     Margin="10 30 10 10"
+                     Grid.Column="0">
+        </UniformGrid>
         <UniformGrid x:Name="GameGrid"
-                     Background="white"
                      Margin="10 30 10 10"
                      Grid.Column="0">
         </UniformGrid>
