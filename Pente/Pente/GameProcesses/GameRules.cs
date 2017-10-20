@@ -39,7 +39,7 @@ namespace Pente.GameProcesses
             {
                 if(move[0] >= rowMiddle - 2 || move[0] <= rowMiddle + 2)
                 {
-                    return IsMoveLegal(board, move);
+                    return IsMoveLegal(board, move); 
                 }
                 else
                 {
