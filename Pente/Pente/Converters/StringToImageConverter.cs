@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace Pente.Converters
 {
-    class StringToImageConverter : IValueConverter
+    public class StringToImageConverter : IValueConverter
     {
         public Brush BlackStoneBrush { get; set; }
         public Brush WhiteStoneBrush { get; set; }
