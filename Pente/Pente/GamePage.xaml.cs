@@ -26,6 +26,7 @@ namespace Pente
         ImageBrush BlackStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\BlackStone.png", UriKind.RelativeOrAbsolute)));
         ImageBrush WhiteStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\WhiteStoneB.png", UriKind.RelativeOrAbsolute)));
         ImageBrush NoStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\Transparent16x16.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush backgroundBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\cross.png", UriKind.RelativeOrAbsolute)));
         Player player1;
         Player player2;
         Board gameBoard;
@@ -50,6 +51,7 @@ namespace Pente
         public void InitializeBoard(int rowCount, int colCount)
         {
             gameBoard = new Board(rowCount, colCount);
+            InitializeImageGrid();
             InitializeGrid();
         }
 
@@ -111,18 +113,34 @@ namespace Pente
                 }
             }
         }
+        public void InitializeImageGrid()
+        {
+            ImageGrid.Rows = gameBoard.rowCount;
+            ImageGrid.Columns = gameBoard.colCount;
+
+            ImageGrid.Children.Clear();
+
+
+            for (int i = 0; i < ImageGrid.Rows; i++)
+            {
+                for (int j = 0; j < ImageGrid.Columns; j++)
+                {
+                    Label newLabel = MakeRectangle();
+                    newLabel.Background = backgroundBrush;
+                    ImageGrid.Children.Add(newLabel);
+                }
+            }
+        }
 
         private Label MakeRectangle()
         {
 
-            SolidColorBrush shapeBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
+            ImageBrush shapeBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\cross.png", UriKind.RelativeOrAbsolute)));
             SolidColorBrush shapeBrush2 = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             Thickness thicc = new Thickness(.5);
             Label rectangleLabel = new Label
             {
-                Background = shapeBrush,
-                BorderBrush = shapeBrush2,
-                BorderThickness = thicc
+                Background = shapeBrush
             };
             return rectangleLabel;
         }
