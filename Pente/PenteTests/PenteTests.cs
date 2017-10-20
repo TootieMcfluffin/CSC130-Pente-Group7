@@ -32,8 +32,7 @@ namespace PenteTests
         public void IsMoveLegalTest_ShouldReturnInvalidMoveInBounds()
         {
             int[] testMove = new int[] { 2, 5 };
-
-            testBoard.GameBoard[2, 5] = "X";
+            testBoard.GameBoard[2, 5].TokenXY = "X";
 
             Assert.IsFalse(Pente.GameProcesses.GameRules.IsMoveLegal(testBoard, testMove));
         }
@@ -50,36 +49,37 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_NothingToRemove_ShouldReturnInvalid()
         {
-            testBoard.GameBoard[0, 0] = "X";
-            testBoard.GameBoard[0, 1] = "Y";
-            testBoard.GameBoard[0, 2] = "Y";
+            testBoard.GameBoard[0, 0].TokenXY = "X";
+            testBoard.GameBoard[0, 1].TokenXY = "Y";
+            testBoard.GameBoard[0, 2].TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[0, 0] = "X";
-            tempBoard.GameBoard[0, 1] = "Y";
-            tempBoard.GameBoard[0, 2] = "Y";
+            tempBoard.GameBoard[0, 0].TokenXY = "X";
+            tempBoard.GameBoard[0, 1].TokenXY = "Y";
+            tempBoard.GameBoard[0, 2].TokenXY = "Y";
 
             int[] testMove = { 0, 4 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
-            for(int i = 0; i < 19; i++)
+            for(int i = 0; i < testBoard.rowCount; i++)
             {
-                for(int j = 0; j < 19; j++)
+                for(int j = 0; j < testBoard.colCount; j++)
                 {
-                    Assert.AreEqual(testBoard.GameBoard[i, j], tempBoard.GameBoard[i, j]);
+                    Assert.AreEqual(testBoard.GameBoard[i, j].TokenXY, tempBoard.GameBoard[i, j].TokenXY);
                 }
             }
         }
+
         [TestMethod]
         public void RemovePiecesTest_CanRemoveUp_ShouldReturnValid()
         {
-            testBoard.GameBoard[3, 0] = "X";
-            testBoard.GameBoard[1, 0] = "Y";
-            testBoard.GameBoard[2, 0] = "Y";
+            testBoard.GameBoard[3, 0].TokenXY = "X";
+            testBoard.GameBoard[1, 0] .TokenXY = "Y";
+            testBoard.GameBoard[2, 0] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[3, 0] = "X";
-            tempBoard.GameBoard[1, 0] = "Y";
-            tempBoard.GameBoard[2, 0] = "Y";
+            tempBoard.GameBoard[3, 0].TokenXY = "X";
+            tempBoard.GameBoard[1, 0] .TokenXY = "Y";
+            tempBoard.GameBoard[2, 0] .TokenXY = "Y";
 
             int[] testMove = { 0, 0 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -89,14 +89,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveDown_ShouldReturnValid()
         {
-            testBoard.GameBoard[0, 0] = "X";
-            testBoard.GameBoard[1, 0] = "Y";
-            testBoard.GameBoard[2, 0] = "Y";
+            testBoard.GameBoard[0, 0].TokenXY = "X";
+            testBoard.GameBoard[1, 0] .TokenXY = "Y";
+            testBoard.GameBoard[2, 0] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[0, 0] = "X";
-            tempBoard.GameBoard[1, 0] = "Y";
-            tempBoard.GameBoard[2, 0] = "Y";
+            tempBoard.GameBoard[0, 0].TokenXY = "X";
+            tempBoard.GameBoard[1, 0] .TokenXY = "Y";
+            tempBoard.GameBoard[2, 0] .TokenXY = "Y";
 
             int[] testMove = { 3, 0 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -107,14 +107,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveLeft_ShouldReturnValid()
         {
-            testBoard.GameBoard[0, 3] = "X";
-            testBoard.GameBoard[0, 2] = "Y";
-            testBoard.GameBoard[0, 1] = "Y";
+            testBoard.GameBoard[0, 3].TokenXY = "X";
+            testBoard.GameBoard[0, 2] .TokenXY = "Y";
+            testBoard.GameBoard[0, 1] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[0, 3] = "X";
-            tempBoard.GameBoard[0, 2] = "Y";
-            tempBoard.GameBoard[0, 1] = "Y";
+            tempBoard.GameBoard[0, 3].TokenXY = "X";
+            tempBoard.GameBoard[0, 2] .TokenXY = "Y";
+            tempBoard.GameBoard[0, 1] .TokenXY = "Y";
 
             int[] testMove = { 0, 0 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -124,14 +124,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveRight_ShouldReturnValid()
         {
-            testBoard.GameBoard[0, 0] = "X";
-            testBoard.GameBoard[0, 1] = "Y";
-            testBoard.GameBoard[0, 2] = "Y";
+            testBoard.GameBoard[0, 0].TokenXY = "X";
+            testBoard.GameBoard[0, 1] .TokenXY = "Y";
+            testBoard.GameBoard[0, 2] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[0, 0] = "X";
-            tempBoard.GameBoard[0, 1] = "Y";
-            tempBoard.GameBoard[0, 2] = "Y";
+            tempBoard.GameBoard[0, 0].TokenXY = "X";
+            tempBoard.GameBoard[0, 1] .TokenXY = "Y";
+            tempBoard.GameBoard[0, 2] .TokenXY = "Y";
 
             int[] testMove = { 0, 3 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -141,14 +141,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveDiagonalUpLeft_ShouldReturnValid()
         {
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[4, 4] = "Y";
-            testBoard.GameBoard[3, 3] = "Y";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[4, 4] .TokenXY = "Y";
+            testBoard.GameBoard[3, 3] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[5, 5] = "X";
-            tempBoard.GameBoard[4, 4] = "Y";
-            tempBoard.GameBoard[3, 3] = "Y";
+            tempBoard.GameBoard[5, 5].TokenXY = "X";
+            tempBoard.GameBoard[4, 4] .TokenXY = "Y";
+            tempBoard.GameBoard[3, 3] .TokenXY = "Y";
 
             int[] testMove = { 2, 2 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -159,14 +159,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveDiagonalUpRight_ShouldReturnValid()
         {
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[4, 6] = "Y";
-            testBoard.GameBoard[3, 7] = "Y";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[4, 6] .TokenXY = "Y";
+            testBoard.GameBoard[3, 7] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[5, 5] = "X";
-            tempBoard.GameBoard[4, 6] = "Y";
-            tempBoard.GameBoard[3, 7] = "Y";
+            tempBoard.GameBoard[5, 5].TokenXY = "X";
+            tempBoard.GameBoard[4, 6] .TokenXY = "Y";
+            tempBoard.GameBoard[3, 7] .TokenXY = "Y";
 
             int[] testMove = { 2, 8 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -176,14 +176,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveDiagonalDownLeft_ShouldReturnValid()
         {
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[6, 4] = "Y";
-            testBoard.GameBoard[7, 3] = "Y";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[6, 4] .TokenXY = "Y";
+            testBoard.GameBoard[7, 3] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[5, 5] = "X";
-            tempBoard.GameBoard[6, 4] = "Y";
-            tempBoard.GameBoard[7, 3] = "Y";
+            tempBoard.GameBoard[5, 5].TokenXY = "X";
+            tempBoard.GameBoard[6, 4] .TokenXY = "Y";
+            tempBoard.GameBoard[7, 3] .TokenXY = "Y";
 
             int[] testMove = { 8, 2 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -193,14 +193,14 @@ namespace PenteTests
         [TestMethod]
         public void RemovePiecesTest_CanRemoveDiagonalDownRight_ShouldReturnValid()
         {
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[6, 6] = "Y";
-            testBoard.GameBoard[7, 7] = "Y";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[6, 6] .TokenXY = "Y";
+            testBoard.GameBoard[7, 7] .TokenXY = "Y";
 
             Pente.Models.Board tempBoard = new Pente.Models.Board();
-            tempBoard.GameBoard[5, 5] = "X";
-            tempBoard.GameBoard[6, 6] = "Y";
-            tempBoard.GameBoard[7, 7] = "Y";
+            tempBoard.GameBoard[5, 5].TokenXY = "X";
+            tempBoard.GameBoard[6, 6] .TokenXY = "Y";
+            tempBoard.GameBoard[7, 7] .TokenXY = "Y";
 
             int[] testMove = { 8, 8 };
             Pente.GameProcesses.GameRules.RemovePieces(testPlayer, testBoard, testMove);
@@ -212,9 +212,9 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_ShouldReturnInvalid()
         {
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[6, 6] = "X";
-            testBoard.GameBoard[7, 7] = "X";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[6, 6].TokenXY = "X";
+            testBoard.GameBoard[7, 7].TokenXY = "X";
 
             int[] testMove = { 8, 8 };
 
@@ -224,10 +224,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckDiagonalDownRight_ShouldReturnValid()
         {
-            testBoard.GameBoard[4, 4] = "X";
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[6, 6] = "X";
-            testBoard.GameBoard[7, 7] = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[6, 6].TokenXY = "X";
+            testBoard.GameBoard[7, 7].TokenXY = "X";
 
             int[] testMove = { 8, 8 };
 
@@ -237,10 +237,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckDiagonalDownLeft_ShouldReturnValid()
         {
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[6, 4] = "X";
-            testBoard.GameBoard[7, 3] = "X";
-            testBoard.GameBoard[8, 2] = "X";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[6, 4].TokenXY = "X";
+            testBoard.GameBoard[7, 3].TokenXY = "X";
+            testBoard.GameBoard[8, 2].TokenXY = "X";
 
             int[] testMove = { 9, 1 };
 
@@ -250,10 +250,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckDiagonalUpRight_ShouldReturnValid()
         {
-            testBoard.GameBoard[7, 2] = "X";
-            testBoard.GameBoard[6, 3] = "X";
-            testBoard.GameBoard[5, 4] = "X";
-            testBoard.GameBoard[4, 5] = "X";
+            testBoard.GameBoard[7, 2].TokenXY = "X";
+            testBoard.GameBoard[6, 3].TokenXY = "X";
+            testBoard.GameBoard[5, 4].TokenXY = "X";
+            testBoard.GameBoard[4, 5].TokenXY = "X";
 
             int[] testMove = { 3, 6 };
 
@@ -263,10 +263,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckDiagonalUpLeft_ShouldReturnValid()
         {
-            testBoard.GameBoard[7, 7] = "X";
-            testBoard.GameBoard[6, 6] = "X";
-            testBoard.GameBoard[5, 5] = "X";
-            testBoard.GameBoard[4, 4] = "X";
+            testBoard.GameBoard[7, 7].TokenXY = "X";
+            testBoard.GameBoard[6, 6].TokenXY = "X";
+            testBoard.GameBoard[5, 5].TokenXY = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
 
             int[] testMove = { 3, 3 };
 
@@ -276,10 +276,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckUp_ShouldReturnValid()
         {
-            testBoard.GameBoard[7, 4] = "X";
-            testBoard.GameBoard[6, 4] = "X";
-            testBoard.GameBoard[5, 4] = "X";
-            testBoard.GameBoard[4, 4] = "X";
+            testBoard.GameBoard[7, 4].TokenXY = "X";
+            testBoard.GameBoard[6, 4].TokenXY = "X";
+            testBoard.GameBoard[5, 4].TokenXY = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
 
             int[] testMove = { 3, 4 };
 
@@ -289,10 +289,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckDown_ShouldReturnValid()
         {
-            testBoard.GameBoard[4, 4] = "X";
-            testBoard.GameBoard[5, 4] = "X";
-            testBoard.GameBoard[6, 4] = "X";
-            testBoard.GameBoard[7, 4] = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
+            testBoard.GameBoard[5, 4].TokenXY = "X";
+            testBoard.GameBoard[6, 4].TokenXY = "X";
+            testBoard.GameBoard[7, 4].TokenXY = "X";
 
             int[] testMove = { 8, 4 };
 
@@ -302,10 +302,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckLeft_ShouldReturnValid()
         {
-            testBoard.GameBoard[4, 7] = "X";
-            testBoard.GameBoard[4, 6] = "X";
-            testBoard.GameBoard[4, 5] = "X";
-            testBoard.GameBoard[4, 4] = "X";
+            testBoard.GameBoard[4, 7].TokenXY = "X";
+            testBoard.GameBoard[4, 6].TokenXY = "X";
+            testBoard.GameBoard[4, 5].TokenXY = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
 
             int[] testMove = { 4, 3 };
 
@@ -315,10 +315,10 @@ namespace PenteTests
         [TestMethod]
         public void CheckBoardFor5_CheckRight_ShouldReturnValid()
         {
-            testBoard.GameBoard[4, 4] = "X";
-            testBoard.GameBoard[4, 5] = "X";
-            testBoard.GameBoard[4, 6] = "X";
-            testBoard.GameBoard[4, 7] = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
+            testBoard.GameBoard[4, 5].TokenXY = "X";
+            testBoard.GameBoard[4, 6].TokenXY = "X";
+            testBoard.GameBoard[4, 7].TokenXY = "X";
 
             int[] testMove = { 4, 8 };
 
@@ -338,11 +338,11 @@ namespace PenteTests
         public void GameOverTest_VerticalWinBoardNotFull_ShouldReturnValid()
         {
             bool expectedValue = true;
-            testBoard.GameBoard[0, 0] = "X";
-            testBoard.GameBoard[1, 0] = "X";
-            testBoard.GameBoard[2, 0] = "X";
-            testBoard.GameBoard[3, 0] = "X";
-            testBoard.GameBoard[4, 0] = "X";
+            testBoard.GameBoard[0, 0].TokenXY = "X";
+            testBoard.GameBoard[1, 0].TokenXY = "X";
+            testBoard.GameBoard[2, 0].TokenXY = "X";
+            testBoard.GameBoard[3, 0].TokenXY = "X";
+            testBoard.GameBoard[4, 0].TokenXY = "X";
             bool actualValue = Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard);
             Assert.AreEqual(expectedValue, actualValue);
         }
@@ -350,11 +350,11 @@ namespace PenteTests
         public void GameOverTest_HorizontalWinBoardNotFull_ShouldReturnValid()
         {
             bool expectedValue = true;
-            testBoard.GameBoard[0, 0] = "X";
-            testBoard.GameBoard[0, 1] = "X";
-            testBoard.GameBoard[0, 2] = "X";
-            testBoard.GameBoard[0, 3] = "X";
-            testBoard.GameBoard[0, 4] = "X";
+            testBoard.GameBoard[0, 0].TokenXY = "X";
+            testBoard.GameBoard[0, 1].TokenXY = "X";
+            testBoard.GameBoard[0, 2].TokenXY = "X";
+            testBoard.GameBoard[0, 3].TokenXY = "X";
+            testBoard.GameBoard[0, 4].TokenXY = "X";
             bool actualValue = Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard);
             Assert.AreEqual(expectedValue, actualValue);
         }
@@ -362,11 +362,11 @@ namespace PenteTests
         public void GameOverTest_LeftToRightDiagonalWinBoardNotFull_ShouldReturnValid()
         {
             bool expectedValue = true;
-            testBoard.GameBoard[4, 0] = "X";
-            testBoard.GameBoard[3, 1] = "X";
-            testBoard.GameBoard[2, 2] = "X";
-            testBoard.GameBoard[1, 3] = "X";
-            testBoard.GameBoard[0, 4] = "X";
+            testBoard.GameBoard[4, 0].TokenXY = "X";
+            testBoard.GameBoard[3, 1].TokenXY = "X";
+            testBoard.GameBoard[2, 2].TokenXY = "X";
+            testBoard.GameBoard[1, 3].TokenXY = "X";
+            testBoard.GameBoard[0, 4].TokenXY = "X";
             bool actualValue = Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard);
             Assert.AreEqual(expectedValue, actualValue);
         }
@@ -374,11 +374,11 @@ namespace PenteTests
         public void GameOverTest_RightToLeftDiagonalWinBoardNotFull_ShouldReturnValid()
         {
             bool expectedValue = true;
-            testBoard.GameBoard[0, 0] = "X";
-            testBoard.GameBoard[1, 1] = "X";
-            testBoard.GameBoard[2, 2] = "X";
-            testBoard.GameBoard[3, 3] = "X";
-            testBoard.GameBoard[4, 4] = "X";
+            testBoard.GameBoard[0, 0].TokenXY = "X";
+            testBoard.GameBoard[1, 1].TokenXY = "X";
+            testBoard.GameBoard[2, 2].TokenXY = "X";
+            testBoard.GameBoard[3, 3].TokenXY = "X";
+            testBoard.GameBoard[4, 4].TokenXY = "X";
             bool actualValue = Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard);
             Assert.AreEqual(expectedValue, actualValue);
         }
@@ -387,7 +387,7 @@ namespace PenteTests
         {
             bool expectedValue = true;
             bool flipped = true;
-            for (int i = 0; i < 19; i++)
+            for (int i = 0; i < testBoard.rowCount; i++)
             {
                 if (i % 2 == 0)
                 {
@@ -400,29 +400,29 @@ namespace PenteTests
                         flipped = false;
                     }
                 }
-                for (int j = 0; j < 19; j++)
+                for (int j = 0; j < testBoard.colCount; j++)
                 {
                     if (flipped)
                     {
                         if (j % 2 == 0)
                         {
-                            testBoard.GameBoard[i, j] = "Y";
+                            testBoard.GameBoard[i, j] .TokenXY = "Y";
                         }
                         else
                         {
-                            testBoard.GameBoard[i, j] = "X";
+                            testBoard.GameBoard[i, j].TokenXY = "X";
                         }
                     }
                     else
                     {
                         if (j % 2 == 0)
                         {
-                            testBoard.GameBoard[i, j] = "X";
+                            testBoard.GameBoard[i, j].TokenXY = "X";
 
                         }
                         else
                         {
-                            testBoard.GameBoard[i, j] = "Y";
+                            testBoard.GameBoard[i, j] .TokenXY = "Y";
                         }
                     }
                 }
@@ -435,7 +435,7 @@ namespace PenteTests
         {
             testPlayer.Captures = 5;
             Assert.IsTrue(Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard));
-        } 
+        }
         
         
         //GUI Testing
