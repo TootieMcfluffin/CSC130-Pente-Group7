@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
         Title="Pente" Height="550" Width="525" Source="MainMenu.xaml"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Pente.ico">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Images/Pente.ico">
 </NavigationWindow>

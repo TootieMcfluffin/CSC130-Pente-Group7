@@ -24,9 +24,17 @@ namespace Pente
     public partial class GamePage : Page
     {
         ImageBrush BlackStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\BlackStone.png", UriKind.RelativeOrAbsolute)));
-        ImageBrush WhiteStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\WhiteStoneB.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush WhiteStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\WhiteStone.png", UriKind.RelativeOrAbsolute)));
         ImageBrush NoStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\Transparent16x16.png", UriKind.RelativeOrAbsolute)));
-        ImageBrush backgroundBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\cross.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush MiddleBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\cross.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush TopLeftBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\topleft.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush TopRightBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\topright.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush BottomRightBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\bottomright.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush BottomLeftBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\bottomleft.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush LeftSideBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\leftside.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush TopSideBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\topside.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush RightSideBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\rightside.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush BottomSideBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\bottomside.png", UriKind.RelativeOrAbsolute)));
         Player player1;
         Player player2;
         Board gameBoard;
@@ -59,7 +67,7 @@ namespace Pente
         {
             Player currentPlayer;
             //if turncount /2 == 0 Player 2
-            if(turnCount % 2 == 0)
+            if(turnCount % 2 == 1)
             {
                 //player turn
                 currentPlayer = player2;
@@ -126,7 +134,43 @@ namespace Pente
                 for (int j = 0; j < ImageGrid.Columns; j++)
                 {
                     Label newLabel = MakeRectangle();
-                    newLabel.Background = backgroundBrush;
+                    if ( i == 0 && j == 0)
+                    {
+                        newLabel.Background = TopLeftBrush;
+                    }
+                    else if (i == 0 && j == ImageGrid.Columns - 1)
+                    {
+                        newLabel.Background = TopRightBrush;
+                    }
+                    else if (i == ImageGrid.Rows - 1 && j == ImageGrid.Columns - 1)
+                    {
+                        newLabel.Background = BottomRightBrush;
+                    }
+                    else if (i == ImageGrid.Rows - 1 && j == 0)
+                    {
+                        newLabel.Background = BottomLeftBrush;
+                    }
+                    else if (i == 0)
+                    {
+                        newLabel.Background = TopSideBrush;
+                    }
+                    else if (j == 0)
+                    {
+                        newLabel.Background = LeftSideBrush;
+                    }
+                    else if (j == ImageGrid.Columns - 1)
+                    {
+                        newLabel.Background = RightSideBrush;
+                    }
+                    else if (i == ImageGrid.Rows - 1)
+                    {
+                        newLabel.Background = BottomSideBrush;
+                    }
+                    else
+                    {
+                        newLabel.Background = MiddleBrush;
+                    }
+
                     ImageGrid.Children.Add(newLabel);
                 }
             }

@@ -23,15 +23,38 @@ namespace Pente.GameProcesses
             {
                 return true;
             }
-            else if (turnCount == 3 && (move[1] < colMiddle - 2 || move[1] > colMiddle + 2) )
+            else if (turnCount == 3 && (move[1] >= colMiddle - 2 || move[1] <= colMiddle + 2) )
+            {
+                if(move[0] < rowMiddle - 2 || move[0] > rowMiddle + 2)
+                {
+                    return IsMoveLegal(board, move);
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else if (turnCount == 3 && (move[1] < colMiddle - 2 || move[1] > colMiddle + 2))
+            {
+                if(move[0] >= rowMiddle - 2 || move[0] <= rowMiddle + 2)
+                {
+                    return IsMoveLegal(board, move);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(turnCount > 3 || turnCount == 2)
             {
                 return IsMoveLegal(board, move);
-            }
-            else if (turnCount == 3 && (move[0] < rowMiddle || move[0] > rowMiddle + 2))
+            } 
+            else
             {
-                return IsMoveLegal(board, move);
+                return false;
             }
-            return IsMoveLegal(board, move);
+            
         }
         /// <summary>
         /// Checks legality of moves. 
