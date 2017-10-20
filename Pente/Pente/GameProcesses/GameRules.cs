@@ -41,11 +41,11 @@ namespace Pente.GameProcesses
         /// <returns>Whether or not the move is legal. </returns>
         public static bool IsMoveLegal(Board board, int[] move)
         {
-            if(move[0] > 18 || move[1] > 18 || move[0] < 0 || move[1] < 0)
+            if(move[0] > board.rowCount - 1 || move[1] > board.colCount - 1 || move[0] < 0 || move[1] < 0)
             {
                 return false;
             }
-            else if (board.GameBoard[move[0],move[1]] == "X" || board.GameBoard[move[0], move[1]] == "Y")
+            else if (board.GameBoard[move[0],move[1]].TokenXY == "X" || board.GameBoard[move[0], move[1]].TokenXY == "Y")
             {
                 return false;
             }
@@ -70,14 +70,14 @@ namespace Pente.GameProcesses
             if (move[0] > 2)
             {
                 //up
-                if (board.GameBoard[row - 1, col] != player && board.GameBoard[row - 1, col] != " ")
+                if (board.GameBoard[row - 1, col].TokenXY != player && board.GameBoard[row - 1, col].TokenXY != " ")
                 {
-                    if (board.GameBoard[row - 2, col] != player && board.GameBoard[row - 2, col] != " ")
+                    if (board.GameBoard[row - 2, col].TokenXY != player && board.GameBoard[row - 2, col].TokenXY != " ")
                     {
-                        if (board.GameBoard[row - 3, col] == player)
+                        if (board.GameBoard[row - 3, col].TokenXY == player)
                         {
-                            board.GameBoard[row - 1, col] = " ";
-                            board.GameBoard[row - 2, col] = " ";
+                            board.GameBoard[row - 1, col].TokenXY = " ";
+                            board.GameBoard[row - 2, col].TokenXY = " ";
                             currentPlayer.Captures++;
                         }
                     }
@@ -85,14 +85,14 @@ namespace Pente.GameProcesses
                 //up right
                 if (move[1] < board.colCount - 3)
                 {
-                    if (board.GameBoard[row - 1, col + 1] != player && board.GameBoard[row - 1, col + 1] != " ")
+                    if (board.GameBoard[row - 1, col + 1].TokenXY != player && board.GameBoard[row - 1, col + 1].TokenXY != " ")
                     {
-                        if (board.GameBoard[row - 2, col + 2] != player && board.GameBoard[row - 2, col + 2] != " ")
+                        if (board.GameBoard[row - 2, col + 2].TokenXY != player && board.GameBoard[row - 2, col + 2].TokenXY != " ")
                         {
-                            if (board.GameBoard[row - 3, col + 3] == player)
+                            if (board.GameBoard[row - 3, col + 3].TokenXY == player)
                             {
-                                board.GameBoard[row - 1, col + 1] = " ";
-                                board.GameBoard[row - 2, col + 2] = " ";
+                                board.GameBoard[row - 1, col + 1].TokenXY = " ";
+                                board.GameBoard[row - 2, col + 2].TokenXY = " ";
                                 currentPlayer.Captures++;
                             }
                         }
@@ -101,14 +101,14 @@ namespace Pente.GameProcesses
                 //up left
                 if (move[1] > 2)
                 {
-                    if (board.GameBoard[row - 1, col - 1] != player && board.GameBoard[row - 1, col - 1] != " ")
+                    if (board.GameBoard[row - 1, col - 1].TokenXY != player && board.GameBoard[row - 1, col - 1].TokenXY != " ")
                     {
-                        if (board.GameBoard[row - 2, col - 2] != player && board.GameBoard[row - 2, col - 2] != " ")
+                        if (board.GameBoard[row - 2, col - 2].TokenXY != player && board.GameBoard[row - 2, col - 2].TokenXY != " ")
                         {
-                            if (board.GameBoard[row - 3, col - 3] == player)
+                            if (board.GameBoard[row - 3, col - 3].TokenXY == player)
                             {
-                                board.GameBoard[row - 1, col - 1] = " ";
-                                board.GameBoard[row - 2, col - 2] = " ";
+                                board.GameBoard[row - 1, col - 1].TokenXY = " ";
+                                board.GameBoard[row - 2, col - 2].TokenXY = " ";
                                 currentPlayer.Captures++;
                             }
                         }
@@ -120,14 +120,14 @@ namespace Pente.GameProcesses
             //right
             if (move[1] < board.colCount - 3)
             {
-                if (board.GameBoard[row, col + 1] != player && board.GameBoard[row, col + 1] != " ")
+                if (board.GameBoard[row, col + 1].TokenXY != player && board.GameBoard[row, col + 1].TokenXY != " ")
                 {
-                    if (board.GameBoard[row, col + 2] != player && board.GameBoard[row, col + 2] != " ")
+                    if (board.GameBoard[row, col + 2].TokenXY != player && board.GameBoard[row, col + 2].TokenXY != " ")
                     {
-                        if (board.GameBoard[row, col + 3] == player)
+                        if (board.GameBoard[row, col + 3].TokenXY == player)
                         {
-                            board.GameBoard[row, col + 1] = " ";
-                            board.GameBoard[row, col + 2] = " ";
+                            board.GameBoard[row, col + 1].TokenXY = " ";
+                            board.GameBoard[row, col + 2].TokenXY = " ";
                             currentPlayer.Captures++;
                         }
 
@@ -138,14 +138,14 @@ namespace Pente.GameProcesses
             //left
             if (move[1] > 2)
             {
-                if (board.GameBoard[row, col - 1] != player && board.GameBoard[row, col - 1] != " ")
+                if (board.GameBoard[row, col - 1].TokenXY != player && board.GameBoard[row, col - 1].TokenXY != " ")
                 {
-                    if (board.GameBoard[row, col - 2] != player && board.GameBoard[row, col - 2] != " ")
+                    if (board.GameBoard[row, col - 2].TokenXY != player && board.GameBoard[row, col - 2].TokenXY != " ")
                     {
-                        if (board.GameBoard[row, col - 3] == player)
+                        if (board.GameBoard[row, col - 3].TokenXY == player)
                         {
-                            board.GameBoard[row, col - 1] = " ";
-                            board.GameBoard[row, col - 2] = " ";
+                            board.GameBoard[row, col - 1].TokenXY = " ";
+                            board.GameBoard[row, col - 2].TokenXY = " ";
                             currentPlayer.Captures++;
                         }
 
@@ -156,14 +156,14 @@ namespace Pente.GameProcesses
             if (move[0] < board.rowCount - 3)
             {
                 //down
-                if (board.GameBoard[row + 1, col] != player && board.GameBoard[row + 1, col] != " ")
+                if (board.GameBoard[row + 1, col].TokenXY != player && board.GameBoard[row + 1, col].TokenXY != " ")
                 {
-                    if (board.GameBoard[row + 2, col] != player && board.GameBoard[row + 2, col] != " ")
+                    if (board.GameBoard[row + 2, col].TokenXY != player && board.GameBoard[row + 2, col].TokenXY != " ")
                     {
-                        if (board.GameBoard[row + 3, col] == player)
+                        if (board.GameBoard[row + 3, col].TokenXY == player)
                         {
-                            board.GameBoard[row + 1, col] = " ";
-                            board.GameBoard[row + 2, col] = " ";
+                            board.GameBoard[row + 1, col].TokenXY = " ";
+                            board.GameBoard[row + 2, col].TokenXY = " ";
                             currentPlayer.Captures++;
                         }
                     }
@@ -171,14 +171,14 @@ namespace Pente.GameProcesses
                 //down right
                 if (move[1] < board.colCount - 3)
                 {
-                    if (board.GameBoard[row + 1, col + 1] != player && board.GameBoard[row + 1, col + 1] != " ")
+                    if (board.GameBoard[row + 1, col + 1].TokenXY != player && board.GameBoard[row + 1, col + 1].TokenXY != " ")
                     {
-                        if (board.GameBoard[row + 2, col + 2] != player && board.GameBoard[row + 2, col + 2] != " ")
+                        if (board.GameBoard[row + 2, col + 2].TokenXY != player && board.GameBoard[row + 2, col + 2].TokenXY != " ")
                         {
-                            if (board.GameBoard[row + 3, col + 3] == player)
+                            if (board.GameBoard[row + 3, col + 3].TokenXY == player)
                             {
-                                board.GameBoard[row + 1, col + 1] = " ";
-                                board.GameBoard[row + 2, col + 2] = " ";
+                                board.GameBoard[row + 1, col + 1].TokenXY = " ";
+                                board.GameBoard[row + 2, col + 2].TokenXY = " ";
                                 currentPlayer.Captures++;
                             }
                         }
@@ -187,14 +187,14 @@ namespace Pente.GameProcesses
                 //down left
                 if (move[1] > 2)
                 {
-                    if (board.GameBoard[row + 1, col - 1] != player && board.GameBoard[row + 1, col - 1] != " ")
+                    if (board.GameBoard[row + 1, col - 1].TokenXY != player && board.GameBoard[row + 1, col - 1].TokenXY != " ")
                     {
-                        if (board.GameBoard[row + 2, col - 2] != player && board.GameBoard[row + 2, col - 2] != " ")
+                        if (board.GameBoard[row + 2, col - 2].TokenXY != player && board.GameBoard[row + 2, col - 2].TokenXY != " ")
                         {
-                            if (board.GameBoard[row + 3, col - 3] == player)
+                            if (board.GameBoard[row + 3, col - 3].TokenXY == player)
                             {
-                                board.GameBoard[row + 1, col - 1] = " ";
-                                board.GameBoard[row + 2, col - 2] = " ";
+                                board.GameBoard[row + 1, col - 1].TokenXY = " ";
+                                board.GameBoard[row + 2, col - 2].TokenXY = " ";
                                 currentPlayer.Captures++;
                             }
                         }
@@ -262,13 +262,13 @@ namespace Pente.GameProcesses
             if (move[0] > 4)
             {
                 //up
-                if (board.GameBoard[row - 1, col] == player)
+                if (board.GameBoard[row - 1, col].TokenXY == player)
                 {
-                    if (board.GameBoard[row - 2, col] == player)
+                    if (board.GameBoard[row - 2, col].TokenXY == player)
                     {
-                        if (board.GameBoard[row - 3, col] == player)
+                        if (board.GameBoard[row - 3, col].TokenXY == player)
                         {
-                            if (board.GameBoard[row - 4, col] == player)
+                            if (board.GameBoard[row - 4, col].TokenXY == player)
                             {
                                 found5 = true;
                             }
@@ -278,13 +278,13 @@ namespace Pente.GameProcesses
                 //up right
                 if (move[1] < board.colCount - 3)
                 {
-                    if (board.GameBoard[row - 1, col + 1] == player)
+                    if (board.GameBoard[row - 1, col + 1].TokenXY == player)
                     {
-                        if (board.GameBoard[row - 2, col + 2] == player)
+                        if (board.GameBoard[row - 2, col + 2].TokenXY == player)
                         {
-                            if (board.GameBoard[row - 3, col + 3] == player)
+                            if (board.GameBoard[row - 3, col + 3].TokenXY == player)
                             {
-                                if(board.GameBoard[row - 4, col + 4] == player)
+                                if(board.GameBoard[row - 4, col + 4].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
@@ -295,13 +295,13 @@ namespace Pente.GameProcesses
                 //up left
                 if (move[1] > 2)
                 {
-                    if (board.GameBoard[row - 1, col - 1] == player)
+                    if (board.GameBoard[row - 1, col - 1].TokenXY == player)
                     {
-                        if (board.GameBoard[row - 2, col - 2] == player)
+                        if (board.GameBoard[row - 2, col - 2].TokenXY == player)
                         {
-                            if (board.GameBoard[row - 3, col - 3] == player)
+                            if (board.GameBoard[row - 3, col - 3].TokenXY == player)
                             {
-                                if (board.GameBoard[row - 4, col - 4] == player)
+                                if (board.GameBoard[row - 4, col - 4].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
@@ -315,13 +315,13 @@ namespace Pente.GameProcesses
             //right
             if (move[1] < board.colCount - 3)
             {
-                if (board.GameBoard[row, col + 1] == player)
+                if (board.GameBoard[row, col + 1].TokenXY == player)
                 {
-                    if (board.GameBoard[row, col + 2] == player)
+                    if (board.GameBoard[row, col + 2].TokenXY == player)
                     {
-                        if (board.GameBoard[row, col + 3] == player)
+                        if (board.GameBoard[row, col + 3].TokenXY == player)
                         {
-                            if (board.GameBoard[row, col + 4] == player)
+                            if (board.GameBoard[row, col + 4].TokenXY == player)
                             {
                                 found5 = true;
                             }
@@ -334,13 +334,13 @@ namespace Pente.GameProcesses
             //left
             if (move[1] > 2)
             {
-                if (board.GameBoard[row, col - 1] == player)
+                if (board.GameBoard[row, col - 1].TokenXY == player)
                 {
-                    if (board.GameBoard[row, col - 2] == player)
+                    if (board.GameBoard[row, col - 2].TokenXY == player)
                     {
-                        if (board.GameBoard[row, col - 3] == player)
+                        if (board.GameBoard[row, col - 3].TokenXY == player)
                         {
-                            if (board.GameBoard[row, col - 4] == player)
+                            if (board.GameBoard[row, col - 4].TokenXY == player)
                             {
                                 found5 = true;
                             }
@@ -350,16 +350,16 @@ namespace Pente.GameProcesses
                 }
             }
             //down
-            if (move[0] < board.rowCount - 3)
+            if (move[0]< board.rowCount - 3)
             {
                 //down
-                if (board.GameBoard[row + 1, col] == player)
+                if (board.GameBoard[row + 1, col].TokenXY == player)
                 {
-                    if (board.GameBoard[row + 2, col] == player)
+                    if (board.GameBoard[row + 2, col].TokenXY == player)
                     {
-                        if (board.GameBoard[row + 3, col] == player)
+                        if (board.GameBoard[row + 3, col].TokenXY == player)
                         {
-                            if (board.GameBoard[row + 4, col] == player)
+                            if (board.GameBoard[row + 4, col].TokenXY == player)
                             {
                                 found5 = true;
                             }
@@ -369,13 +369,13 @@ namespace Pente.GameProcesses
                 //down right
                 if (move[1] < board.colCount - 3)
                 {
-                    if (board.GameBoard[row + 1, col + 1] == player)
+                    if (board.GameBoard[row + 1, col + 1].TokenXY == player)
                     {
-                        if (board.GameBoard[row + 2, col + 2] == player)
+                        if (board.GameBoard[row + 2, col + 2].TokenXY == player)
                         {
-                            if (board.GameBoard[row + 3, col + 3] == player)
+                            if (board.GameBoard[row + 3, col + 3].TokenXY == player)
                             {
-                                if (board.GameBoard[row + 4, col + 4] == player)
+                                if (board.GameBoard[row + 4, col + 4].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
@@ -386,13 +386,13 @@ namespace Pente.GameProcesses
                 //down left
                 if (move[1] > 2)
                 {
-                    if (board.GameBoard[row + 1, col - 1] == player)
+                    if (board.GameBoard[row + 1, col - 1].TokenXY == player)
                     {
-                        if (board.GameBoard[row + 2, col - 2] == player)
+                        if (board.GameBoard[row + 2, col - 2].TokenXY == player)
                         {
-                            if (board.GameBoard[row + 3, col - 3] == player)
+                            if (board.GameBoard[row + 3, col - 3].TokenXY == player)
                             {
-                                if (board.GameBoard[row + 4, col - 4] == player)
+                                if (board.GameBoard[row + 4, col - 4].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
@@ -416,7 +416,7 @@ namespace Pente.GameProcesses
             {
                 for (int k = 0; k < board.colCount; k++)
                 {
-                    if(board.GameBoard[j, k] == "" || board.GameBoard[j, k] == " ")
+                    if(board.GameBoard[j, k].TokenXY == "" || board.GameBoard[j, k].TokenXY == " ")
                     {
                         isFull = false;
                         k = board.colCount + 1;
