@@ -17,6 +17,6 @@ namespace Pente.Models
 
         int turnCount;
 
-        string[][] boardState;
+        Cell[][] boardState;
     }
 }

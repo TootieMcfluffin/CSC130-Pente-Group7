@@ -437,6 +437,7 @@ namespace PenteTests
             Assert.IsTrue(Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard));
         } 
         
+        
         //GUI Testing
         //[TestMethod]
         //public void PlayButtonTest_WindowChangedState_ShouldReturnValid()

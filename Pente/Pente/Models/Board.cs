@@ -8,19 +8,17 @@ namespace Pente.Models
 {
     public class Board
     {
-        public string[,] GameBoard { get; set; }
-        public int rowCount;
-        public int colCount;
+        public Cell[,] GameBoard { get; set; }
+        public int rowCount = 10;
+        public int colCount = 10;
         public Board()
         {
-            GameBoard = new string[19, 19];
-            rowCount = 19;
-            colCount = 19;
+            GameBoard = new Cell[rowCount, colCount];
             initBoard();
         }
         public Board(int rows, int cols)
         {
-            GameBoard = new string[rows, cols];
+            GameBoard = new Cell[rows, cols];
             rowCount = rows;
             colCount = cols;
             initBoard();
@@ -32,7 +30,7 @@ namespace Pente.Models
             {
                 for (int k = 0; k < colCount; k++)
                 {
-                    GameBoard[j, k] = " ";
+                    GameBoard[j, k] = new Cell();
                 }
             }
         }

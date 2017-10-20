@@ -24,7 +24,7 @@ namespace Pente
     public partial class GamePage : Page
     {
         ImageBrush BlackStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\BlackStone.png", UriKind.RelativeOrAbsolute)));
-        ImageBrush WhiteStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\WhiteStone.png", UriKind.RelativeOrAbsolute)));
+        ImageBrush WhiteStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\WhiteStoneB.png", UriKind.RelativeOrAbsolute)));
         ImageBrush NoStoneBrush = new ImageBrush(new BitmapImage(new Uri(@"..\\..\\Images\\Transparent16x16.png", UriKind.RelativeOrAbsolute)));
         Player player1;
         Player player2;
@@ -38,7 +38,7 @@ namespace Pente
             player1 = new Player(player1Name, Enums.PlayerOrderEnum.PLAYER1);
             player2 = new Player(player2Name, Enums.PlayerOrderEnum.PLAYER2);
             turnCount = 2;
-            gameBoard.GameBoard[rowCount / 2, colCount / 2] = "X";
+            gameBoard.GameBoard[rowCount / 2, colCount / 2].TokenXY = "X";
         }
 
         public GamePage(GameState game)
@@ -70,7 +70,7 @@ namespace Pente
 
             if(GameRules.IsMoveLegal(gameBoard, move, turnCount))
             {
-                gameBoard.GameBoard[move[0], move[1]] = "" + currentPlayer.pieceChar;
+                gameBoard.GameBoard[move[0], move[1]].TokenXY = "" + currentPlayer.pieceChar;
                 GameRules.RemovePieces(currentPlayer, gameBoard, move);
                 resetTimer();
             }
@@ -93,11 +93,11 @@ namespace Pente
                 {
                     Label newLabel = MakeRectangle(); //import method from conways
                     newLabel.MouseLeftButtonDown += RectangleLabel_Click; //label click method
-                    string filler = " ";
-                    gameBoard.GameBoard[i, j] = filler;
-                    newLabel.DataContext = filler;
+                    Cell newCellBoii = new Cell();
+                    gameBoard.GameBoard[i, j] = newCellBoii;
+                    newLabel.DataContext = newCellBoii;
                     Binding newBinding = new Binding();
-                    newBinding.Path = new PropertyPath("gameBoard.GameBoard[i, j]");
+                    newBinding.Path = new PropertyPath("TokenXY");
                     StringToImageConverter s2b = new StringToImageConverter();
                     s2b.BlackStoneBrush = BlackStoneBrush;
                     s2b.WhiteStoneBrush = WhiteStoneBrush;
@@ -130,8 +130,8 @@ namespace Pente
         {
             Label hithere = (Label)sender;
             int index = GameGrid.Children.IndexOf(hithere);
-            int column = index / GameGrid.Columns;
-            int row = index - (column * GameGrid.Columns);
+            int row = index / GameGrid.Columns;
+            int column = index - (row * GameGrid.Columns);
             int[] move = { row, column };
             playerTurn(move);
         }
