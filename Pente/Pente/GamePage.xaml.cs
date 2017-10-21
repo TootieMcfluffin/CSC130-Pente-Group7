@@ -1,20 +1,13 @@
 ﻿using Pente.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Pente.GameProcesses;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Pente.Converters;
+using System.Timers;
 
 namespace Pente
 {
@@ -39,15 +32,34 @@ namespace Pente
         Player player2;
         Board gameBoard;
         int turnCount;
+        public string p1turn;
+        public string p2turn;
 
+        public int TurnTimer { get; set; } = 20;
+
+        Timer playTimer = new Timer(1000);
+        
         public GamePage(string player1Name, string player2Name, int rowCount, int colCount)
         {
             InitializeComponent();
             InitializeBoard(rowCount, colCount);
             player1 = new Player(player1Name, Enums.PlayerOrderEnum.PLAYER1);
             player2 = new Player(player2Name, Enums.PlayerOrderEnum.PLAYER2);
+            Player1NameLabel.Content = player1.Name;
+            Player2NameLabel.Content = player2.Name;
+            Player1CapturesLabel.Content = player1.Captures;
+            Player2CapturesLabel.Content = player2.Captures;
             turnCount = 2;
+            p1turn = "It\'s " + player1Name + "'s Turn!";
+            p2turn = "It\'s " + player2Name + "'s Turn!";
+            PlayerTurnLabel.Content = p1turn;
+            playTimer.Elapsed += TurnTimerEvent;
             gameBoard.GameBoard[rowCount / 2, colCount / 2].TokenXY = "X";
+            TimerLabel.Content = TurnTimer;
+            playTimer.AutoReset = true;
+            //playTimer.BeginInit();
+            playTimer.Start();
+            
         }
 
         public GamePage(GameState game)
@@ -69,13 +81,13 @@ namespace Pente
             //if turncount /2 == 0 Player 2
             if(turnCount % 2 == 1)
             {
-                //player turn
+                PlayerTurnLabel.Content = p1turn;
                 currentPlayer = player2;
             }
             else
             {
+                PlayerTurnLabel.Content = p2turn;
                 currentPlayer = player1;
-                //player turn
             }
 
             if(GameRules.IsMoveLegal(gameBoard, move, turnCount))
@@ -83,6 +95,23 @@ namespace Pente
                 gameBoard.GameBoard[move[0], move[1]].TokenXY = "" + currentPlayer.pieceChar;
                 GameRules.RemovePieces(currentPlayer, gameBoard, move);
                 resetTimer();
+            }
+            Player1CapturesLabel.Content = player1.Captures;
+            Player2CapturesLabel.Content = player2.Captures;
+
+            if (GameRules.GameOver(currentPlayer, gameBoard))
+            {
+                if (currentPlayer.hasWon)
+                {
+                    //popup
+                    MessageBox.Show("Congratulations "+ currentPlayer.Name + "! You have won the game!");
+                }
+                else
+                {
+                    MessageBox.Show("IT\'S A DRAW! You have filled the board and somehow nobody won... Nice.");
+                }
+                MainMenu mainM = new MainMenu();
+                this.NavigationService.Navigate(mainM);
             }
         }
         /// <summary>
@@ -175,7 +204,7 @@ namespace Pente
                 }
             }
         }
-
+        
         private Label MakeRectangle()
         {
 
@@ -188,6 +217,7 @@ namespace Pente
             };
             return rectangleLabel;
         }
+
         private void RectangleLabel_Click(object sender, EventArgs e)
         {
             Label hithere = (Label)sender;
@@ -198,9 +228,20 @@ namespace Pente
             playerTurn(move);
         }
 
+        private void TurnTimerEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            TurnTimer--;
+            if (TurnTimer < 0) {
+                TurnTimer = 20;
+                turnCount++;
+            }
+            TimerLabel.Content = TurnTimer;
+        }
+
         private void resetTimer()
         {
-            //This will reset the timer
+            TurnTimer = 20;
+            TimerLabel.Content = TurnTimer;
             turnCount++;
         }
 

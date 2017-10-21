@@ -299,7 +299,7 @@ namespace Pente.GameProcesses
                     }
                 }
                 //up right
-                if (move[1] < board.colCount - 3)
+                if (move[1] < board.colCount - 5)
                 {
                     if (board.GameBoard[row - 1, col + 1].TokenXY == player)
                     {
@@ -316,7 +316,7 @@ namespace Pente.GameProcesses
                     }
                 }
                 //up left
-                if (move[1] > 2)
+                if (move[1] > 4)
                 {
                     if (board.GameBoard[row - 1, col - 1].TokenXY == player)
                     {
@@ -336,7 +336,7 @@ namespace Pente.GameProcesses
             }
 
             //right
-            if (move[1] < board.colCount - 3)
+            if (move[1] < board.colCount - 5)
             {
                 if (board.GameBoard[row, col + 1].TokenXY == player)
                 {
@@ -355,7 +355,7 @@ namespace Pente.GameProcesses
             }
 
             //left
-            if (move[1] > 2)
+            if (move[1] > 4)
             {
                 if (board.GameBoard[row, col - 1].TokenXY == player)
                 {
@@ -373,7 +373,7 @@ namespace Pente.GameProcesses
                 }
             }
             //down
-            if (move[0]< board.rowCount - 3)
+            if (move[0]< board.rowCount - 5)
             {
                 //down
                 if (board.GameBoard[row + 1, col].TokenXY == player)
@@ -390,7 +390,7 @@ namespace Pente.GameProcesses
                     }
                 }
                 //down right
-                if (move[1] < board.colCount - 3)
+                if (move[1] < board.colCount - 5)
                 {
                     if (board.GameBoard[row + 1, col + 1].TokenXY == player)
                     {
@@ -407,7 +407,7 @@ namespace Pente.GameProcesses
                     }
                 }
                 //down left
-                if (move[1] > 2)
+                if (move[1] > 4)
                 {
                     if (board.GameBoard[row + 1, col - 1].TokenXY == player)
                     {
