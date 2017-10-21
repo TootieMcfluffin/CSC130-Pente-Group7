@@ -23,7 +23,7 @@ namespace Pente.GameProcesses
             {
                 return true;
             }
-            else if (turnCount == 3 && (move[1] >= colMiddle - 2 || move[1] <= colMiddle + 2) )
+            else if (turnCount == 3 && (move[1] >= colMiddle - 2 && move[1] <= colMiddle + 2) )
             {
                 if(move[0] < rowMiddle - 2 || move[0] > rowMiddle + 2)
                 {
@@ -37,7 +37,7 @@ namespace Pente.GameProcesses
             }
             else if (turnCount == 3 && (move[1] < colMiddle - 2 || move[1] > colMiddle + 2))
             {
-                if(move[0] >= rowMiddle - 2 || move[0] <= rowMiddle + 2)
+                if(move[0] >= rowMiddle - 2 && move[0] <= rowMiddle + 2)
                 {
                     return IsMoveLegal(board, move); 
                 }
