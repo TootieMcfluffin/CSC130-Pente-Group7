@@ -281,148 +281,156 @@ namespace Pente.GameProcesses
             int col = move[1];
             bool found5 = false;
 
-            //up
-            if (move[0] > 4)
+            if(board.GameBoard[move[0], move[1]].TokenXY == player)
             {
                 //up
-                if (board.GameBoard[row - 1, col].TokenXY == player)
+                if (move[0] > 4)
                 {
-                    if (board.GameBoard[row - 2, col].TokenXY == player)
+                    //up
+                    if (board.GameBoard[row - 1, col].TokenXY == player)
                     {
-                        if (board.GameBoard[row - 3, col].TokenXY == player)
+                        if (board.GameBoard[row - 2, col].TokenXY == player)
                         {
-                            if (board.GameBoard[row - 4, col].TokenXY == player)
+                            if (board.GameBoard[row - 3, col].TokenXY == player)
                             {
-                                found5 = true;
+                                if (board.GameBoard[row - 4, col].TokenXY == player)
+                                {
+                                    found5 = true;
+                                }
                             }
                         }
                     }
+                    //up right
+                    if (move[1] < board.colCount - 5)
+                    {
+                        if (board.GameBoard[row - 1, col + 1].TokenXY == player)
+                        {
+                            if (board.GameBoard[row - 2, col + 2].TokenXY == player)
+                            {
+                                if (board.GameBoard[row - 3, col + 3].TokenXY == player)
+                                {
+                                    if (board.GameBoard[row - 4, col + 4].TokenXY == player)
+                                    {
+                                        found5 = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //up left
+                    if (move[1] > 4)
+                    {
+                        if (board.GameBoard[row - 1, col - 1].TokenXY == player)
+                        {
+                            if (board.GameBoard[row - 2, col - 2].TokenXY == player)
+                            {
+                                if (board.GameBoard[row - 3, col - 3].TokenXY == player)
+                                {
+                                    if (board.GameBoard[row - 4, col - 4].TokenXY == player)
+                                    {
+                                        found5 = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //remove
                 }
-                //up right
+
+                //right
                 if (move[1] < board.colCount - 5)
                 {
-                    if (board.GameBoard[row - 1, col + 1].TokenXY == player)
+                    if (board.GameBoard[row, col + 1].TokenXY == player)
                     {
-                        if (board.GameBoard[row - 2, col + 2].TokenXY == player)
+                        if (board.GameBoard[row, col + 2].TokenXY == player)
                         {
-                            if (board.GameBoard[row - 3, col + 3].TokenXY == player)
+                            if (board.GameBoard[row, col + 3].TokenXY == player)
                             {
-                                if(board.GameBoard[row - 4, col + 4].TokenXY == player)
+                                if (board.GameBoard[row, col + 4].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
                             }
+
                         }
                     }
                 }
-                //up left
+
+                //left
                 if (move[1] > 4)
                 {
-                    if (board.GameBoard[row - 1, col - 1].TokenXY == player)
+                    if (board.GameBoard[row, col - 1].TokenXY == player)
                     {
-                        if (board.GameBoard[row - 2, col - 2].TokenXY == player)
+                        if (board.GameBoard[row, col - 2].TokenXY == player)
                         {
-                            if (board.GameBoard[row - 3, col - 3].TokenXY == player)
+                            if (board.GameBoard[row, col - 3].TokenXY == player)
                             {
-                                if (board.GameBoard[row - 4, col - 4].TokenXY == player)
+                                if (board.GameBoard[row, col - 4].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
                             }
+
                         }
                     }
                 }
-                //remove
-            }
-
-            //right
-            if (move[1] < board.colCount - 5)
-            {
-                if (board.GameBoard[row, col + 1].TokenXY == player)
-                {
-                    if (board.GameBoard[row, col + 2].TokenXY == player)
-                    {
-                        if (board.GameBoard[row, col + 3].TokenXY == player)
-                        {
-                            if (board.GameBoard[row, col + 4].TokenXY == player)
-                            {
-                                found5 = true;
-                            }
-                        }
-
-                    }
-                }
-            }
-
-            //left
-            if (move[1] > 4)
-            {
-                if (board.GameBoard[row, col - 1].TokenXY == player)
-                {
-                    if (board.GameBoard[row, col - 2].TokenXY == player)
-                    {
-                        if (board.GameBoard[row, col - 3].TokenXY == player)
-                        {
-                            if (board.GameBoard[row, col - 4].TokenXY == player)
-                            {
-                                found5 = true;
-                            }
-                        }
-
-                    }
-                }
-            }
-            //down
-            if (move[0]< board.rowCount - 5)
-            {
                 //down
-                if (board.GameBoard[row + 1, col].TokenXY == player)
+                if (move[0] < board.rowCount - 5)
                 {
-                    if (board.GameBoard[row + 2, col].TokenXY == player)
+                    //down
+                    if (board.GameBoard[row + 1, col].TokenXY == player)
                     {
-                        if (board.GameBoard[row + 3, col].TokenXY == player)
+                        if (board.GameBoard[row + 2, col].TokenXY == player)
                         {
-                            if (board.GameBoard[row + 4, col].TokenXY == player)
+                            if (board.GameBoard[row + 3, col].TokenXY == player)
                             {
-                                found5 = true;
-                            }
-                        }
-                    }
-                }
-                //down right
-                if (move[1] < board.colCount - 5)
-                {
-                    if (board.GameBoard[row + 1, col + 1].TokenXY == player)
-                    {
-                        if (board.GameBoard[row + 2, col + 2].TokenXY == player)
-                        {
-                            if (board.GameBoard[row + 3, col + 3].TokenXY == player)
-                            {
-                                if (board.GameBoard[row + 4, col + 4].TokenXY == player)
+                                if (board.GameBoard[row + 4, col].TokenXY == player)
                                 {
                                     found5 = true;
                                 }
                             }
                         }
                     }
-                }
-                //down left
-                if (move[1] > 4)
-                {
-                    if (board.GameBoard[row + 1, col - 1].TokenXY == player)
+                    //down right
+                    if (move[1] < board.colCount - 5)
                     {
-                        if (board.GameBoard[row + 2, col - 2].TokenXY == player)
+                        if (board.GameBoard[row + 1, col + 1].TokenXY == player)
                         {
-                            if (board.GameBoard[row + 3, col - 3].TokenXY == player)
+                            if (board.GameBoard[row + 2, col + 2].TokenXY == player)
                             {
-                                if (board.GameBoard[row + 4, col - 4].TokenXY == player)
+                                if (board.GameBoard[row + 3, col + 3].TokenXY == player)
                                 {
-                                    found5 = true;
+                                    if (board.GameBoard[row + 4, col + 4].TokenXY == player)
+                                    {
+                                        found5 = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //down left
+                    if (move[1] > 4)
+                    {
+                        if (board.GameBoard[row + 1, col - 1].TokenXY == player)
+                        {
+                            if (board.GameBoard[row + 2, col - 2].TokenXY == player)
+                            {
+                                if (board.GameBoard[row + 3, col - 3].TokenXY == player)
+                                {
+                                    if (board.GameBoard[row + 4, col - 4].TokenXY == player)
+                                    {
+                                        found5 = true;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+            
+            if(found5)
+            {
+                currentPlayer.hasWon = true;
             }
             return found5;
         }
