@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Pente.Converters;
 using System.Timers;
+using System.Windows.Threading;
 
 namespace Pente
 {
@@ -37,7 +38,8 @@ namespace Pente
 
         public int TurnTimer { get; set; } = 20;
 
-        Timer playTimer = new Timer(1000);
+        //Timer playTimer = new Timer(1000);
+        DispatcherTimer playTimer = new DispatcherTimer();
         
         public GamePage(string player1Name, string player2Name, int rowCount, int colCount)
         {
@@ -53,11 +55,17 @@ namespace Pente
             p1turn = "It\'s " + player1Name + "'s Turn!";
             p2turn = "It\'s " + player2Name + "'s Turn!";
             PlayerTurnLabel.Content = p1turn;
-            playTimer.Elapsed += TurnTimerEvent;
+            //playTimer.Interval = 1000;
+            //playTimer.Elapsed += TurnTimerEvent;
             gameBoard.GameBoard[rowCount / 2, colCount / 2].TokenXY = "X";
             TimerLabel.Content = TurnTimer;
-            playTimer.AutoReset = true;
+            //playTimer.AutoReset = true;
             //playTimer.BeginInit();
+
+            playTimer.Tick += new EventHandler(TurnTimerEvent);
+            playTimer.Interval = new TimeSpan(0, 0, 1);
+
+
             playTimer.Start();
             
         }
@@ -228,12 +236,20 @@ namespace Pente
             playerTurn(move);
         }
 
-        private void TurnTimerEvent(Object source, System.Timers.ElapsedEventArgs e)
+        private void TurnTimerEvent(Object source, EventArgs e)
         {
             TurnTimer--;
             if (TurnTimer < 0) {
                 TurnTimer = 20;
                 turnCount++;
+                if (turnCount % 2 == 0)
+                {
+                    PlayerTurnLabel.Content = p1turn;
+                }
+                else
+                {
+                    PlayerTurnLabel.Content = p2turn;
+                }
             }
             TimerLabel.Content = TurnTimer;
         }
