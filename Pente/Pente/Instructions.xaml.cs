@@ -20,15 +20,22 @@ namespace Pente
     /// </summary>
     public partial class Instructions : Page
     {
+        Page lastPage;
         public Instructions()
         {
             InitializeComponent();
+            lastPage = new MainMenu();
+        }
+
+        public Instructions(Page last)
+        {
+            InitializeComponent();
+            lastPage = last;
         }
 
         private void Return_Click(object sender, RoutedEventArgs e)
         {
-            MainMenu menu = new MainMenu();
-            this.NavigationService.Navigate(menu);
+            this.NavigationService.Navigate(lastPage);
         }
     }
 }

@@ -11,8 +11,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="7*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <StackPanel>
@@ -31,7 +31,7 @@
                  Width="400"
                  Margin="5"
                  BorderThickness="0"
-                 Text="The goal of Pente is to attain a run of 5 in a row with your peices. If you do this you win. Another way to win is to capture a total of 5 pairs from your opponent. Capturing is done through placing 2 of your peices around a run of 2 of your opponents pieces. Play is started by black and they must place a piece in the center of the board. White can then place a piece of their own anywhere. Black is then required to place a piece three or more intersections away from their center piece. After this, play continues with both opponents placing pieces until a winner is decided."
+                 Text="Object of the Game:&#xD;&#xA;Win by placing five (or more) of your stones in a row, vertically, horizontally, or diagonally, with no empty points between them. Or, win by capturing five (or more) pairs of your opponent's stones.&#xD;&#xA;&#xD;&#xA;How to Play:&#xD;&#xA;Play starts with the board completely clear of stones. The first player (black) begins the game by playing one stone on the center point. Thereafter the players take turns placing their stones, one at a time, on any empty intersection(Not the squares). Once played, a stone cannot be moved again, except when removed by a capture. Players alternate turns adding new stones to the board.&#xD;&#xA;&#xD;&#xA;Captures:&#xD;&#xA;Whenever your opponent has two stones (and only two) which are adjacent, those stones are vulnerable to capture. The pair can be captured by bracketing its two ends with your own stones. The captured stones are removed from the board. Captures can be made vertically, horizontally, or diagonally, and multiple captures can occur on a single move.&#xD;&#xA;"
                  IsReadOnly="True"
                  FontFamily="Courier New"
                  TextWrapping="Wrap"/>

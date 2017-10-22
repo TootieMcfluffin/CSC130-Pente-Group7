@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Pente
 {
@@ -46,6 +49,19 @@ namespace Pente
 
         private void Load_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Pente file (*.pen)|*.pen";
+            openFileDialog.ShowDialog();
+
+            Stream filestream = File.Open(openFileDialog.FileName, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            GameState currentState = (GameState)formatter.Deserialize(filestream);
+
+            filestream.Close();
+
+            GamePage gm = new GamePage(currentState);
+            this.NavigationService.Navigate(gm);
 
         }
     }

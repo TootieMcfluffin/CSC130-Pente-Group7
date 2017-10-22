@@ -13,6 +13,8 @@
             <MenuItem Header="Save_ As" Click="SaveAs_Click"/>
             <MenuItem Header="_Save" Click="Save_Click"/>
             <MenuItem Header="_Open" Click="Load_Click"/>
+            <MenuItem Header="_Instructions" Click="Instruction_Click" />
+            <MenuItem Header="_Exit" Click="Exit_To_Menu_Click" />
 
         </Menu>
         <Label Margin="10 20 20 10"

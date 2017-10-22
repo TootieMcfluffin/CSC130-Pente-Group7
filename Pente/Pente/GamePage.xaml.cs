@@ -102,6 +102,11 @@ namespace Pente
                 PlayerTurnLabel.Content = p2turn;
             }
 
+            playTimer.Tick += new EventHandler(TurnTimerEvent);
+            playTimer.Interval = new TimeSpan(0, 0, 1);
+            TimerLabel.Content = TurnTimer;
+
+            playTimer.Start();
 
         }
 
@@ -370,7 +375,7 @@ namespace Pente
             saveFileDialog.Filter = "Pente file (*.pen)|*.pen";
             //saveFileDialog.InitialDirectory = @"..\\..\\SavedContactLists\\";
 
-            saveFileDialog.ShowDialog();
+            //saveFileDialog.ShowDialog();
 
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -416,6 +421,18 @@ namespace Pente
 
             GamePage gm = new GamePage(currentState);
             this.NavigationService.Navigate(gm);
+        }
+
+        private void Exit_To_Menu_Click(object sender, RoutedEventArgs e)
+        {
+            MainMenu mainM = new MainMenu();
+            this.NavigationService.Navigate(mainM);
+        }
+
+        private void Instruction_Click(object sender, RoutedEventArgs e)
+        {
+            Instructions instructions = new Instructions(this);
+            this.NavigationService.Navigate(instructions);
         }
     }
 }
