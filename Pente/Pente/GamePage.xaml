@@ -10,11 +10,10 @@
     <Grid>
         <Menu Height="20"
               VerticalAlignment="Top">
-            <MenuItem Header="Save_ As"/>
-                <MenuItem Header="_Save"/>
-            <MenuItem Header="_Open"/>
-            <!-- display timer? in textbox -->
-            
+            <MenuItem Header="Save_ As" Click="SaveAs_Click"/>
+            <MenuItem Header="_Save" Click="Save_Click"/>
+            <MenuItem Header="_Open" Click="Load_Click"/>
+
         </Menu>
         <Label Margin="10 20 20 10"
                HorizontalAlignment="Center">Time Left: </Label>

@@ -9,6 +9,9 @@ using System.Windows.Media.Imaging;
 using Pente.Converters;
 using System.Timers;
 using System.Windows.Threading;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.Win32;
 
 namespace Pente
 {
@@ -32,39 +35,40 @@ namespace Pente
         Player player1;
         Player player2;
         Board gameBoard;
+        GameState currentState;
+
         int turnCount;
         public string p1turn;
         public string p2turn;
+        private string recentPath = "";
 
         public int TurnTimer { get; set; } = 20;
 
-        //Timer playTimer = new Timer(1000);
         DispatcherTimer playTimer = new DispatcherTimer();
         
         public GamePage(string player1Name, string player2Name, int rowCount, int colCount)
         {
             InitializeComponent();
             InitializeBoard(rowCount, colCount);
+
             player1 = new Player(player1Name, Enums.PlayerOrderEnum.PLAYER1);
             player2 = new Player(player2Name, Enums.PlayerOrderEnum.PLAYER2);
+
             Player1NameLabel.Content = player1.Name;
             Player2NameLabel.Content = player2.Name;
             Player1CapturesLabel.Content = player1.Captures;
             Player2CapturesLabel.Content = player2.Captures;
             turnCount = 2;
+
             p1turn = "It\'s " + player1Name + "'s Turn!";
             p2turn = "It\'s " + player2Name + "'s Turn!";
             PlayerTurnLabel.Content = p1turn;
-            //playTimer.Interval = 1000;
-            //playTimer.Elapsed += TurnTimerEvent;
-            gameBoard.GameBoard[rowCount / 2, colCount / 2].TokenXY = "X";
-            TimerLabel.Content = TurnTimer;
-            //playTimer.AutoReset = true;
-            //playTimer.BeginInit();
 
+            gameBoard.GameBoard[rowCount / 2, colCount / 2].TokenXY = "X";
+            
             playTimer.Tick += new EventHandler(TurnTimerEvent);
             playTimer.Interval = new TimeSpan(0, 0, 1);
-
+            TimerLabel.Content = TurnTimer;
 
             playTimer.Start();
             
@@ -73,6 +77,31 @@ namespace Pente
         public GamePage(GameState game)
         {
             InitializeComponent();
+            InitializeBoard(game.BoardState, game.RowCount, game.ColCount);
+
+            player1 = new Player(game.Player1Name, Enums.PlayerOrderEnum.PLAYER1);
+            player2 = new Player(game.Player2Name, Enums.PlayerOrderEnum.PLAYER2);
+
+            player1.Captures = game.Player1CaptureCount;
+            player2.Captures = game.Player2CaptureCount;
+
+            Player1NameLabel.Content = player1.Name;
+            Player2NameLabel.Content = player2.Name;
+            Player1CapturesLabel.Content = player1.Captures;
+            Player2CapturesLabel.Content = player2.Captures;
+            turnCount = game.TurnCount;
+
+            p1turn = "It\'s " + player1.Name + "'s Turn!";
+            p2turn = "It\'s " + player2.Name + "'s Turn!";
+            if(turnCount % 2 == 0)
+            {
+                PlayerTurnLabel.Content = p1turn;
+            }
+            else
+            {
+                PlayerTurnLabel.Content = p2turn;
+            }
+
 
         }
 
@@ -82,6 +111,14 @@ namespace Pente
             InitializeImageGrid();
             InitializeGrid();
         }
+
+        public void InitializeBoard(string[,] savedBoard, int rowCount, int colCount)
+        {
+            gameBoard = new Board(rowCount, colCount);
+            InitializeImageGrid();
+            InitializeGrid(savedBoard);
+        }
+
 
         public void playerTurn(int[] move)
         {
@@ -141,6 +178,38 @@ namespace Pente
                     Label newLabel = MakeRectangle(); //import method from conways
                     newLabel.MouseLeftButtonDown += RectangleLabel_Click; //label click method
                     Cell newCellBoii = new Cell();
+                    gameBoard.GameBoard[i, j] = newCellBoii;
+                    newLabel.DataContext = newCellBoii;
+                    Binding newBinding = new Binding();
+                    newBinding.Path = new PropertyPath("TokenXY");
+                    StringToImageConverter s2b = new StringToImageConverter();
+                    s2b.BlackStoneBrush = BlackStoneBrush;
+                    s2b.WhiteStoneBrush = WhiteStoneBrush;
+                    s2b.NoStoneBrush = NoStoneBrush;
+                    newBinding.Converter = s2b;
+                    newBinding.Mode = BindingMode.TwoWay;
+                    newBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                    BindingOperations.SetBinding(newLabel, Label.BackgroundProperty, newBinding);
+                    GameGrid.Children.Add(newLabel);
+
+                }
+            }
+        }
+        public void InitializeGrid(string[,] savedBoard)
+        {
+            GameGrid.Rows = gameBoard.rowCount;
+            GameGrid.Columns = gameBoard.colCount;
+
+            GameGrid.Children.Clear();
+
+
+            for (int i = 0; i < GameGrid.Rows; i++)
+            {
+                for (int j = 0; j < GameGrid.Columns; j++)
+                {
+                    Label newLabel = MakeRectangle(); //import method from conways
+                    newLabel.MouseLeftButtonDown += RectangleLabel_Click; //label click method
+                    Cell newCellBoii = new Cell(savedBoard[i,j]);
                     gameBoard.GameBoard[i, j] = newCellBoii;
                     newLabel.DataContext = newCellBoii;
                     Binding newBinding = new Binding();
@@ -261,53 +330,92 @@ namespace Pente
             turnCount++;
         }
 
-        //private void Save_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (recentPath == "")
-        //    {
-        //        SaveAs_Click(sender, e);
-        //    }
-        //    Stream filestream = File.Open(recentPath + "\\contacts.con", FileMode.Create);
-        //    BinaryFormatter formatter = new BinaryFormatter();
-        //    formatter.Serialize(filestream, contacts);
-        //    filestream.Close();
-        //}
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (recentPath == "")
+            {
+                SaveAs_Click(sender, e);
+            } else
+            {
+                Stream filestream = File.Open(recentPath, FileMode.Create);
+                BinaryFormatter formatter = new BinaryFormatter();
 
-        //private void SaveAs_Click(object sender, RoutedEventArgs e)
-        //{
-        //    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                currentState.BoardState = new string[gameBoard.rowCount, gameBoard.colCount];
+                for(int row = 0; row < gameBoard.rowCount; row++)
+                {
+                    for(int col = 0; col < gameBoard.colCount; col++)
+                    {
+                        currentState.BoardState[row, col] = gameBoard.GameBoard[row, col].TokenXY;
+                    }
+                }
 
-        //    saveFileDialog.Filter = "ContactList file (*.con)|*.con";
-        //    //saveFileDialog.InitialDirectory = @"..\\..\\SavedContactLists\\";
+                currentState.TurnCount = turnCount;
+                currentState.Player1Name = player1.Name;
+                currentState.Player1CaptureCount = player1.Captures;
+                currentState.Player2Name = player2.Name;
+                currentState.Player2CaptureCount = player2.Captures;
 
-        //    saveFileDialog.ShowDialog();
+                currentState.RowCount = gameBoard.rowCount;
+                currentState.ColCount = gameBoard.colCount;
 
-        //    if (saveFileDialog.ShowDialog() == true)
-        //    {
-        //        recentPath = saveFileDialog.FileName;
-        //        Stream filestream = File.Open(saveFileDialog.FileName, FileMode.Create);
-        //        BinaryFormatter formatter = new BinaryFormatter();
-        //        formatter.Serialize(filestream, contacts);
-        //        filestream.Close();
-        //    }
-        //}
+                formatter.Serialize(filestream, currentState);
+                filestream.Close();
+            }
+        }
 
-        //private void Load_Click(object sender, RoutedEventArgs e)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Filter = "ContactList file (*.con)|*.con";
-        //    openFileDialog.ShowDialog();
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-        //    Stream filestream = File.Open(openFileDialog.FileName, FileMode.Open);
-        //    BinaryFormatter formatter = new BinaryFormatter();
-        //    ObservableCollection<Contact> cons = new ObservableCollection<Contact>();
-        //    cons = (ObservableCollection<Contact>)formatter.Deserialize(filestream);
-        //    contacts.Clear();
-        //    foreach (Contact contact in cons)
-        //    {
-        //        contacts.Add(contact);
-        //    }
-        //    filestream.Close();
-        //}
+            saveFileDialog.Filter = "Pente file (*.pen)|*.pen";
+            //saveFileDialog.InitialDirectory = @"..\\..\\SavedContactLists\\";
+
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                recentPath = saveFileDialog.FileName;
+                Stream filestream = File.Open(saveFileDialog.FileName, FileMode.Create);
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                currentState.BoardState = new string[gameBoard.rowCount, gameBoard.colCount];
+                for (int row = 0; row < gameBoard.rowCount; row++)
+                {
+                    for (int col = 0; col < gameBoard.colCount; col++)
+                    {
+                        currentState.BoardState[row, col] = gameBoard.GameBoard[row, col].TokenXY;
+                    }
+                }
+
+                currentState.TurnCount = turnCount;
+                currentState.Player1Name = player1.Name;
+                currentState.Player1CaptureCount = player1.Captures;
+                currentState.Player2Name = player2.Name;
+                currentState.Player2CaptureCount = player2.Captures;
+
+                currentState.RowCount = gameBoard.rowCount;
+                currentState.ColCount = gameBoard.colCount;
+
+                formatter.Serialize(filestream, currentState);
+                filestream.Close();
+            }
+        }
+
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Pente file (*.pen)|*.pen";
+            openFileDialog.ShowDialog();
+
+            Stream filestream = File.Open(openFileDialog.FileName, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            GameState currentState = (GameState)formatter.Deserialize(filestream);
+
+            filestream.Close();
+
+            GamePage gm = new GamePage(currentState);
+            this.NavigationService.Navigate(gm);
+        }
     }
 }

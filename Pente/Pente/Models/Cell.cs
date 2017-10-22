@@ -7,9 +7,20 @@ using System.Threading.Tasks;
 
 namespace Pente.Models
 {
+    [Serializable]
     public class Cell : INotifyPropertyChanged
     {
         string tokenXY = " ";
+
+        public Cell()
+        {
+
+        }
+
+        public Cell(String token)
+        {
+            this.TokenXY = token;
+        }
 
         public string TokenXY
         {
@@ -20,9 +31,10 @@ namespace Pente.Models
                 OnPropertyChanged("tokenXY");
             }
         }
-
+        //[Serializable]
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //[Serializable]
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
