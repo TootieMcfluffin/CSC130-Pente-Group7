@@ -10,6 +10,7 @@ namespace PenteTests
         Pente.Models.Board testBoard;
         Pente.Models.Player testPlayer;
         Pente.MainWindow testWindow;
+        Pente.GamePage gamePage;
 
         [TestInitialize]
         public void TestIntitialize()
@@ -17,6 +18,7 @@ namespace PenteTests
             testBoard = new Pente.Models.Board();
             testPlayer = new Pente.Models.Player("Dubya", Pente.Enums.PlayerOrderEnum.PLAYER2);
             testPlayer.pieceChar = 'X';
+            //gamePage = new Pente.GamePage("Dubya", "Topher", 19, 19);
         }
 
         //Tests for the IsMoveLegal method
@@ -436,6 +438,8 @@ namespace PenteTests
             testPlayer.Captures = 5;
             Assert.IsTrue(Pente.GameProcesses.GameRules.GameOver(testPlayer, testBoard));
         }
+
+        //Tests for playerTurnMethod
         
         
         //GUI Testing
