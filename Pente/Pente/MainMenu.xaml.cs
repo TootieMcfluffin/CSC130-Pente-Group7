@@ -53,16 +53,22 @@ namespace Pente
             openFileDialog.Filter = "Pente file (*.pen)|*.pen";
             openFileDialog.ShowDialog();
 
-            Stream filestream = File.Open(openFileDialog.FileName, FileMode.Open);
-            BinaryFormatter formatter = new BinaryFormatter();
+            string fileName = openFileDialog.FileName;
+            if(fileName != null && fileName != "")
+            {
+                Stream filestream = File.Open(fileName, FileMode.Open);
+                if (File.Exists(fileName))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
 
-            GameState currentState = (GameState)formatter.Deserialize(filestream);
+                    GameState currentState = (GameState)formatter.Deserialize(filestream);
 
-            filestream.Close();
+                    filestream.Close();
 
-            GamePage gm = new GamePage(currentState);
-            this.NavigationService.Navigate(gm);
-
+                    GamePage gm = new GamePage(currentState);
+                    this.NavigationService.Navigate(gm);
+                }
+            }
         }
     }
 }

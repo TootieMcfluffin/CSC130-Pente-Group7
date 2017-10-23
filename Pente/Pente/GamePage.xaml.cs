@@ -340,7 +340,8 @@ namespace Pente
             if (recentPath == "")
             {
                 SaveAs_Click(sender, e);
-            } else
+            }
+            else
             {
                 Stream filestream = File.Open(recentPath, FileMode.Create);
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -380,29 +381,32 @@ namespace Pente
             if (saveFileDialog.ShowDialog() == true)
             {
                 recentPath = saveFileDialog.FileName;
-                Stream filestream = File.Open(saveFileDialog.FileName, FileMode.Create);
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                currentState.BoardState = new string[gameBoard.rowCount, gameBoard.colCount];
-                for (int row = 0; row < gameBoard.rowCount; row++)
+                if(recentPath != "")
                 {
-                    for (int col = 0; col < gameBoard.colCount; col++)
+                    Stream filestream = File.Open(saveFileDialog.FileName, FileMode.Create);
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    currentState.BoardState = new string[gameBoard.rowCount, gameBoard.colCount];
+                    for (int row = 0; row < gameBoard.rowCount; row++)
                     {
-                        currentState.BoardState[row, col] = gameBoard.GameBoard[row, col].TokenXY;
+                        for (int col = 0; col < gameBoard.colCount; col++)
+                        {
+                            currentState.BoardState[row, col] = gameBoard.GameBoard[row, col].TokenXY;
+                        }
                     }
+
+                    currentState.TurnCount = turnCount;
+                    currentState.Player1Name = player1.Name;
+                    currentState.Player1CaptureCount = player1.Captures;
+                    currentState.Player2Name = player2.Name;
+                    currentState.Player2CaptureCount = player2.Captures;
+
+                    currentState.RowCount = gameBoard.rowCount;
+                    currentState.ColCount = gameBoard.colCount;
+
+                    formatter.Serialize(filestream, currentState);
+                    filestream.Close();
                 }
-
-                currentState.TurnCount = turnCount;
-                currentState.Player1Name = player1.Name;
-                currentState.Player1CaptureCount = player1.Captures;
-                currentState.Player2Name = player2.Name;
-                currentState.Player2CaptureCount = player2.Captures;
-
-                currentState.RowCount = gameBoard.rowCount;
-                currentState.ColCount = gameBoard.colCount;
-
-                formatter.Serialize(filestream, currentState);
-                filestream.Close();
             }
         }
 
@@ -412,15 +416,23 @@ namespace Pente
             openFileDialog.Filter = "Pente file (*.pen)|*.pen";
             openFileDialog.ShowDialog();
 
-            Stream filestream = File.Open(openFileDialog.FileName, FileMode.Open);
-            BinaryFormatter formatter = new BinaryFormatter();
+            string fileName = openFileDialog.FileName;
+            if (fileName != null && fileName != "")
+            {
+                Stream filestream = File.Open(fileName, FileMode.Open);
+                if (File.Exists(fileName))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
 
-            GameState currentState = (GameState)formatter.Deserialize(filestream);
+                    GameState currentState = (GameState)formatter.Deserialize(filestream);
 
-            filestream.Close();
+                    filestream.Close();
 
-            GamePage gm = new GamePage(currentState);
-            this.NavigationService.Navigate(gm);
+                    GamePage gm = new GamePage(currentState);
+                    this.NavigationService.Navigate(gm);
+                }
+            }
+
         }
 
         private void Exit_To_Menu_Click(object sender, RoutedEventArgs e)
